@@ -57,11 +57,19 @@
 |name_v             | nom ville                | AN       | 100        |                     |
 
 ### Dépendance fonctionnelles
-+ *id_j* ?name_j, img_j, rules_j, loc_jcaution_j
-+ *id_t* ? name_t
-+ *id_c* ? name_c
-+ *id_u* ? name_u, firstname_u, email_u, address_u, mdp_u, compteur_u
-+ *id_v* ? name_v
++ **id_j** ?name_j, img_j, rules_j, loc_jcaution_j
++ **id_t** ? name_t
++ **id_c** ? name_c
++ **id_u** ? name_u, firstname_u, email_u, address_u, mdp_u, compteur_u
++ **id_v** ? name_v
 
 ### Schéma MCD
 ![Schéma MCD](img/mcd.png "MCD")
+
+## MLD
++ types (**id_t**, name_t)
++ categories (**id_c**, name_c)
++ utilisateurs (**id_u**, name_u, firstname_u, email_u, address_u, mdp_u, compteur_u, #id_v)
++ jeux (**id_j**, name_j, img_j, rules_j, loc_j, caution_j, #id_t, #id_c, #id_u, #id_j_p)
++ villes (**id_v**, name_v)
+
