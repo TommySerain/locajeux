@@ -63,4 +63,5 @@
 + *id_u* ? name_u, firstname_u, email_u, address_u, mdp_u, compteur_u
 + *id_v* ? name_v
 
-
+### Schéma MCD
+![Schéma MCD](img/mcd.png "MCD")
