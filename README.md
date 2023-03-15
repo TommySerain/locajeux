@@ -73,3 +73,5 @@
 + jeux (**id_j**, name_j, img_j, rules_j, loc_j, caution_j, #id_t, #id_c, #id_u, #id_j_p)
 + villes (**id_v**, name_v)
 
+## MPD
+![Schéma MPD](img/mpd-mysql.png "MPD")
