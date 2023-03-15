@@ -5,10 +5,13 @@ class Game
     public function __construct(
         private int $id,
         private string $name,
-        private string $type,
-        private string $category,
         private string $picture,
         private string $rules,
+        private int $locP,
+        private int $cautP,
+        private int $idP,
+        private int $type,
+        private int $category,
     )
     {
         
@@ -24,6 +27,39 @@ public function setId($id):int
 {
 if ($id!==""){
     return $this->id=$id;
+}
+}
+
+public function getLocP():int
+{
+    return $this->locP;
+}
+public function setLocP($locP):int
+{
+if ($locP!==""){
+    return $this->locP=$locP;
+}
+}
+
+public function getCautP():int
+{
+    return $this->locP;
+}
+public function setC($cautP):int
+{
+if ($cautP!==""){
+    return $this->cautP=$cautP;
+}
+}
+
+public function getIdP():int
+{
+    return $this->idP;
+}
+public function setIdP($idP):int
+{
+if ($idP!==""){
+    return $this->idP=$idP;
 }
 }
 

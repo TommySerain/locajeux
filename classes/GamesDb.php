@@ -13,15 +13,18 @@ class GamesDb
         
         foreach ($gamesContent as $line){
             $gameInfos = explode(",",$line);
-            [$id, $name, $type, $category, $picture, $rules] = $gameInfos;
+            [$id, $name, $picture, $rules, $locP, $cautP, $idP, $type, $category] = $gameInfos;
             // var_dump($gameInfos);
             $this->game []= new Game (
                 intval($id),
                 $name,
-                $type,
-                $category,
                 $picture,
-                $rules
+                $rules,
+                intval($locP),
+                intval($cautP),
+                intval($idP),
+                intval($type),
+                intval($category),
             );
             
         }
