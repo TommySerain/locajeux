@@ -76,3 +76,8 @@
 
 ## MPD
 ![Schéma MPD](img/mpd-mysql.png "MPD")
+
+# Début du projet
+J'ai commencé par créer une petite "base de données" en fichier .txt en imaginant qu'un client aurait pu la fournir.  
+Je l'ai ensuite importer dans la base de donnée, dans un premier temps grâce à une requête query puis,  
+finalement par une requête préparée pour m'exercer sur ces requêtes qui seront plus sécurisés de manière générale.  
