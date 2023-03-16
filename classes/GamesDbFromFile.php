@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__."/Game.php";
 
-class GamesDb
+class GamesDbFromFile
 {
     private array $game;
     private const GAMES_FILE = __DIR__."/../data/jeux.txt";
