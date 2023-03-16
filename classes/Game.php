@@ -43,7 +43,7 @@ if ($locP!==""){
 
 public function getCautP():int
 {
-    return $this->locP;
+    return $this->cautP;
 }
 public function setC($cautP):int
 {
