@@ -70,7 +70,8 @@
 + types (**id_t**, name_t)
 + categories (**id_c**, name_c)
 + utilisateurs (**id_u**, name_u, firstname_u, email_u, address_u, mdp_u, compteur_u, #id_v)
-+ jeux (**id_j**, name_j, img_j, rules_j, loc_j, caution_j, #id_t, #id_c, #id_u, #id_j_p)
++ jeux (**id_j**, name_j, img_j, rules_j, loc_j, caution_j, #id_t, #id_c, #id_j_p)
++ l_jeux_utilisateurs (**#id_j**, **#id_u**, note, com)
 + villes (**id_v**, name_v)
 
 ## MPD
