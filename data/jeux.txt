@@ -1,8 +1,8 @@
-1,SubTerra,./img/sub_terra.png,https://gusandco.net/wp-content/uploads/2019/04/French-Rules.pdf,10,40,NULL,1,1
-2,7 Wonders,./img/7_wonders.jpg,https://cdn.1j1ju.com/medias/ce/c4/60-7-wonders-regle.pdf,10,30,NULL,2,1
-3,Esquisse,./img/Esquisse.jpg,https://cdn.1j1ju.com/medias/25/ba/36-esquisse-regle.pdf,7,50,NULL,3,3
-4,Sound Box,./img/sound_box.jpg,https://cdn.1j1ju.com/medias/7e/16/ca-sound-box-regle.pdf,5,25,NULL,3,3
-5,Aeons End,./img/aeon_s_end.jpg,https://cdn.1j1ju.com/medias/d0/43/9e-aeons-end-regle.pdf,12,60,NULL,1,1
-6,Andor,./img/andor.jpg,https://cdn.1j1ju.com/medias/79/54/33-andor-regle.pdf,10,50,NULL,1,1,
-7,Call to adventure,./img/call_to_adventure.jpeg,https://cdn.1j1ju.com/medias/70/31/f5-call-to-adventure-regle.pdf,5,40,NULL,2,2,
+1,SubTerra,./img/sub_terra.png,https://gusandco.net/wp-content/uploads/2019/04/French-Rules.pdf,10,40, ,1,1
+2,7 Wonders,./img/7_wonders.jpg,https://cdn.1j1ju.com/medias/ce/c4/60-7-wonders-regle.pdf,10,30, ,2,1
+3,Esquisse,./img/Esquisse.jpg,https://cdn.1j1ju.com/medias/25/ba/36-esquisse-regle.pdf,7,50, ,3,3
+4,Sound Box,./img/sound_box.jpg,https://cdn.1j1ju.com/medias/7e/16/ca-sound-box-regle.pdf,5,25, ,3,3
+5,Aeons End,./img/aeon_s_end.jpg,https://cdn.1j1ju.com/medias/d0/43/9e-aeons-end-regle.pdf,12,60, ,1,1
+6,Andor,./img/andor.jpg,https://cdn.1j1ju.com/medias/79/54/33-andor-regle.pdf,10,50, ,1,1,
+7,Call to adventure,./img/call_to_adventure.jpeg,https://cdn.1j1ju.com/medias/70/31/f5-call-to-adventure-regle.pdf,5,40, ,2,2,
 8,Andor héros Sombres,./img/andor_heros_sombres.jpg,https://cdn.1j1ju.com/medias/a9/10/2c-andor-heros-sombres-regle.pdf,8,30,6,1,4
