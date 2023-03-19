@@ -3,7 +3,9 @@ require_once __DIR__."/classes/GamesDbFromFile.php";
 require_once __DIR__."/layout/header.php";
 require_once __DIR__."/pdo/db.php";
 require_once __DIR__."/data/fileToDb.php";
-require_once __DIR__."/modal/modal.php";
+require_once __DIR__."/connexion/modal.php";
+require_once __DIR__."/connexion/connexion.php";
+
 
 
 
@@ -47,11 +49,8 @@ require_once __DIR__."/recherche/recherche.php";
 </div>
 </section>
 
-<section class="modal">
-
-</section>
 <?php
-
+var_dump($_SESSION);
 
 require_once __DIR__."/layout/footer.php";
 

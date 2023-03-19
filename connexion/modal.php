@@ -10,8 +10,8 @@
             <div id="connexion" class="col-6 px-5">
                 <h2>Connexion</h2>
                 <form action="" class="d-flex flex-column" method="POST">
-                    <input class="form-control mt-3" type="email" name="mail" placeholder="Email">
-                    <input class="form-control mt-3" type="password" name="mdp" placeholder="Mot de passe">
+                    <input class="form-control mt-3" type="email" name="email" placeholder="Email">
+                    <input class="form-control mt-3" type="password" name="mdp_u" placeholder="Mot de passe">
                     <input class="btn btn-success d-block w-25 mx-auto mt-3" type="submit" value="Connexion">
                 </form>
             </div>
