@@ -1,0 +1,21 @@
+#modalCo{
+    height: 2000px;
+}
+.is-visible{
+    display: none;
+};
+.overflow{
+    overflow: hidden;
+}
+.connexionClose:hover{
+    cursor: pointer;
+}
+.jeux{
+    box-shadow: 0px 0px 10px 5px black;
+}
+/* #recherche{
+    background-color: grey;
+} */
+/* #navbar{
+    background-color: red !important;
+} */
