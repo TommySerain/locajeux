@@ -50,7 +50,7 @@ require_once __DIR__."/recherche/recherche.php";
 </section>
 
 <?php
-var_dump($_SESSION);
+
 
 require_once __DIR__."/layout/footer.php";
 
