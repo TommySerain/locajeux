@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__."/../fonctions/fonctions.php";
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,10 +27,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item ms-auto">
-                        <button id="btnCo" class="btn btn-success">Connexion</button>
+                        <?php loginOrAccount ()?>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <?php  ?>
 </header>
