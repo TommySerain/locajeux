@@ -1,14 +1,10 @@
 <?php
-require_once __DIR__."/classes/GamesDbFromFile.php";
-require_once __DIR__."/layout/header.php";
-require_once __DIR__."/pdo/db.php";
-require_once __DIR__."/data/fileToDb.php";
-require_once __DIR__."/connexion/modal.php";
-require_once __DIR__."/connexion/connexion.php";
-
-
-
-
+require_once __DIR__ . "/classes/GamesDbFromFile.php";
+require_once __DIR__ . "/layout/header.php";
+require_once __DIR__ . "/pdo/db.php";
+require_once __DIR__ . "/data/fileToDb.php";
+require_once __DIR__ . "/connexion/modal.php";
+require_once __DIR__ . "/connexion/connexion.php";
 
 
 ?>
@@ -17,10 +13,10 @@ require_once __DIR__."/connexion/connexion.php";
         <select class="form-control w-auto m-4 mb-0" name="type" id="">
             <option value="">Type &nbsp &nbsp ⬇️</option>
             <?php
-            $statement=$pdo->query('SELECT * FROM types');
-            while ($option=$statement->fetch()){
-                ?>
-            <option value="<?php echo $option['name_t'] ;?>"><?php echo $option['name_t'] ;?></option>
+            $statement = $pdo->query('SELECT * FROM types');
+            while ($option = $statement->fetch()) {
+            ?>
+                <option value="<?php echo $option['name_t']; ?>"><?php echo $option['name_t']; ?></option>
             <?php
             }
             ?>
@@ -28,10 +24,10 @@ require_once __DIR__."/connexion/connexion.php";
         <select class="form-control w-auto m-4 mb-0" name="categories" id="">
             <option value="">Catégorie ⬇️</option>
             <?php
-            $statement=$pdo->query('SELECT * FROM categories');
-            while ($option=$statement->fetch()){
-                ?>
-            <option value="<?php echo $option['name_c'] ;?>"><?php echo $option['name_c'] ;?></option>
+            $statement = $pdo->query('SELECT * FROM categories');
+            while ($option = $statement->fetch()) {
+            ?>
+                <option value="<?php echo $option['name_c']; ?>"><?php echo $option['name_c']; ?></option>
             <?php
             }
             ?>
@@ -42,15 +38,14 @@ require_once __DIR__."/connexion/connexion.php";
 </section>
 
 <section class="container">
-<div class="row">
-<?php
-require_once __DIR__."/recherche/recherche.php";
-?>
-</div>
+    <div class="row">
+        <?php
+        require_once __DIR__ . "/recherche/recherche.php";
+        ?>
+    </div>
 </section>
 
 <?php
 
 
-require_once __DIR__."/layout/footer.php";
-
+require_once __DIR__ . "/layout/footer.php";

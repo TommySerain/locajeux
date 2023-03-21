@@ -3,14 +3,14 @@
 $joinRequest = [];
 $whereRequest = [];
 $executeRequest = [];
-if (!empty($_GET) && ($_GET['type'] !== "" || $_GET['categories'] !== "" || $_GET['nom'] !== "")) {
-    // $results = search($_GET);
+if (!empty($_GET) && (!empty($_GET['type']) || !empty($_GET['categories'])|| !empty($_GET['nom']))) {
+
 
     $type = $_GET['type'];
     $cat = $_GET['categories'];
     $name = $_GET['nom'];
 
-    // $results = search();
+    // $results = search($type, $cat, $name);
 
     if (!empty($type)) {
         $joinRequest[] = "NATURAL JOIN types";
@@ -28,11 +28,7 @@ if (!empty($_GET) && ($_GET['type'] !== "" || $_GET['categories'] !== "" || $_GE
     }
     $where = implode(' AND ', $whereRequest);
     $join = implode(' ', $joinRequest);
-
-    // var_dump($executeRequest);
-    // var_dump($exe);
     $request = "SELECT * FROM jeux $join WHERE $where;";
-    // var_dump($request);
     $stmt = $pdo->prepare($request);
     $stmt->execute(
         $executeRequest
