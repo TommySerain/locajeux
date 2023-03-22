@@ -9,7 +9,7 @@ class search
 
     public function __construct($type, $cat, $name)
     {
-        
+
         // $results = search($type, $cat, $name);
 
         if (!empty($type)) {

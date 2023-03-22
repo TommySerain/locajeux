@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__."/../fonctions/fonctions.php";
+require_once __DIR__ . "/../connexion/modal.php";
+require_once __DIR__ . "/../connexion/connexion.php";
 session_start();
 ?>
 

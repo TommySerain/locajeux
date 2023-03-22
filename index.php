@@ -3,13 +3,12 @@ require_once __DIR__ . "/classes/GamesDbFromFile.php";
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/data/fileToDb.php";
-require_once __DIR__ . "/connexion/modal.php";
-require_once __DIR__ . "/connexion/connexion.php";
+
 
 
 ?>
 <section class="container mx-auto pb-4 rounded-5 w-50 mt-3 bg-danger" id="recherche">
-    <form class="d-flex mx-auto justify-content-center" action="">
+    <form class="d-flex mx-auto justify-content-center" action="" method="GET">
         <select class="form-control w-auto m-4 mb-0" name="type" id="">
             <option value="">Type &nbsp &nbsp ⬇️</option>
             <?php
@@ -46,6 +45,26 @@ require_once __DIR__ . "/connexion/connexion.php";
 </section>
 
 <?php
-
+if (empty($_GET) || (empty($_GET['type']) && empty($_GET['categories']) && empty($_GET['nom']))){
+?>
+<section class="container">
+    <div class="row">
+        <?php
+        while ($game = $stmt->fetch()) {
+            ?>
+                <div class="col-3 p-0">
+                    <div class="rounded-4 m-4 jeux">
+                        <a href="fichejeux.php?id=<?php echo $game['id_j']; ?>">
+                            <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4  jeux" src="<?php echo $game['img_j']; ?>" alt="">
+                        </a>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+    </div>
+</section>
+<?php
+}
 
 require_once __DIR__ . "/layout/footer.php";
