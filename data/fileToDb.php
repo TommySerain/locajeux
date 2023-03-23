@@ -30,7 +30,7 @@ try {
         $stmt = $pdo->query("SELECT * FROM jeux");
     };
 } catch (PDOException $e) {
-    // var_dump($e->getmessage());
+    // echo $e->getmessage();
 }
 // $statement=$pdo->query("INSERT INTO jeux (id_j,name_j, img_j, rules_j, loc_j, caution_j, id_t, id_c)
 //         VALUES ('$idGame','$nameGame','$PictureGame','$rulesGame',$locGame,$cautionGame,$typeGame,$catGame)");

@@ -14,7 +14,7 @@ $dbConfig = parse_ini_file(__DIR__ . "/../config/db.ini");
 
 $dsn = "mysql:host=$host;port=$port;dbname=$dbName;charset=$dbCharset";  //le port 3306 est celui par défaut donc on n'est pas obligé de le renseigner
 try {
-    $pdo = new PDO($dsn, "$user", "$password", $options=[PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);
+    $pdo = new PDO($dsn, "$user", "$password", $options = [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
 } catch (PDOException $e) {
     die('Une erreur est survenue : ' . $e->getCode() . ' - ' . $e->getMessage());
 }

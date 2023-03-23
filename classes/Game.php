@@ -12,20 +12,13 @@ class Game
         private int $idP,
         private int $type,
         private int $category,
+        private bool $available = true
     ) {
     }
-
-
 
     public function getId(): int
     {
         return $this->id;
-    }
-    public function setId($id): int
-    {
-        if ($id !== "") {
-            return $this->id = $id;
-        }
     }
 
     public function getLocP(): int
@@ -43,7 +36,7 @@ class Game
     {
         return $this->cautP;
     }
-    public function setC($cautP): int
+    public function setCautP($cautP): int
     {
         if ($cautP !== "") {
             return $this->cautP = $cautP;
@@ -65,7 +58,7 @@ class Game
     {
         return $this->name;
     }
-    public function setname($name): string
+    public function setName($name): string
     {
         if ($name !== "") {
             return $this->name = $name;
@@ -114,5 +107,24 @@ class Game
         if ($rules !== "") {
             return $this->rules = $rules;
         }
+    }
+
+    public function getAvailable($availabe): bool
+    {
+        return $this->available;
+    }
+    public function setAvailable($available): bool
+    {
+        if ($available !== "") {
+            return $this->available = $available;
+        }
+    }
+
+    public function isAvailable(): bool
+    {
+        if ($this->available) {
+            return true;
+        }
+        return false;
     }
 }

@@ -1,23 +1,21 @@
 <?php
 
 
-function loginOrAccount()
+function menuConnexionOuMonCompte(): void
 {
-    if (!empty($_SESSION)) {
-?> <li>
+    if (isset($_SESSION['connected'])) {
+?>
+        <li>
             <a class="btn btn-success" href="mon_compte.php" aria-current="page">Mon compte</a>
         </li>
         <li>
             <form class=" m-0" action="" method="POST">
                 <input type="submit" class="btn btn-success ms-3 " name="deconnexion" value="Déconnexion">
-                <?php
-                if (!empty($_POST)) {
-                    $_SESSION = [];
-                    session_destroy();
-                    header('location: deconnexion.php');
-                }
-                ?>
             </form>
+            <?php
+            if (isset($_POST['deconnexion'])) {
+                deconnexion($_SESSION);
+            } ?>
         </li>
     <?php
     } else {
@@ -27,12 +25,19 @@ function loginOrAccount()
     }
 };
 
-function search($type, $cat, $name, $pdo)
+function deconnexion(array $session): void
+{ //TODO:deconnexion avec un lien et procéder à déconnexion dans deconnexion.php
+    $session = [];
+    session_destroy();
+    header("location: index.php");
+}
+
+
+function search($type, $cat, $name, $pdo): object
 {
     $joinRequest = [];
     $whereRequest = [];
     $executeRequest = [];
-
     if (!empty($type)) {
         $joinRequest[] = "NATURAL JOIN types";
         $whereRequest[] = "name_t=:type";

@@ -1,12 +1,18 @@
 <?php
-require_once __DIR__."/../fonctions/fonctions.php";
-require_once __DIR__ . "/../connexion/modal.php";
-require_once __DIR__ . "/../connexion/connexion.php";
 session_start();
+
+
+
+require_once __DIR__ . "/../fonctions/fonctions.php";
+
+require_once __DIR__ . "/../connexion/modal.php";
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,23 +23,24 @@ session_start();
     <script defer src="./js/main.js"></script>
     <title>Mes jeux</title>
 </head>
-<body class="bg-secondary">
-    
-<header>
-    <nav id="navbar" class="navbar navbar-expand-lg bg-danger">
-        <div class="container-fluid px-5">
-            <a class="navbar-brand text-white" href="index.php">Locajeux</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item ms-auto">
-                        <?php loginOrAccount ()?>
-                    </li>
-                </ul>
+
+<body class="bg-dark">
+<!-- TODO:fichier navbar -->
+    <header>
+        <nav id="navbar" class="navbar navbar-expand-lg bg-danger">
+            <div class="container-fluid px-5">
+                <a class="navbar-brand text-white fw-bold" href="index.php">Locajeux</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item ms-auto">
+                            <?php menuConnexionOuMonCompte() ?>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    <?php  ?>
-</header>
+        </nav>
+        <?php  ?>
+    </header>
