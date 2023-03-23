@@ -4,9 +4,7 @@
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/classes/Game.php";
-require_once __DIR__ . "/connexion/inscription.php";
-require_once __DIR__ . "/connexion/connexion.php";
-require_once __DIR__ . "/connexion/modal.php";
+
 
 $id = intval($_GET['id']);
 
@@ -75,7 +73,7 @@ $jeu = new GAME(
 $jeu->setAvailable(true);
 // var_dump($jeu->isAvailable());
 // var_dump($_SESSION);
-if ($_SESSION['connected']) { ?>
+if (isset($_SESSION['connected'])) { ?>
     <form action="" method="POST">
         <?php
         if ($jeu->isAvailable()) {

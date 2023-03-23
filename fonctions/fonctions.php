@@ -1,5 +1,10 @@
 <?php
 
+function redirect($page): void
+{
+    header("location: $page");
+    exit;
+}
 
 function menuConnexionOuMonCompte(): void
 {
@@ -29,7 +34,7 @@ function deconnexion(array $session): void
 { //TODO:deconnexion avec un lien et procéder à déconnexion dans deconnexion.php
     $session = [];
     session_destroy();
-    header("location: index.php");
+    redirect("index.php");
 }
 
 
@@ -54,7 +59,11 @@ function search($type, $cat, $name, $pdo): object
     }
     $where = implode(' AND ', $whereRequest);
     $join = implode(' ', $joinRequest);
-    $request = "SELECT * FROM jeux $join WHERE $where;";
+    if ($join !== "") {
+        $request = "SELECT * FROM jeux $join WHERE $where;";
+    } else {
+        $request = "SELECT * FROM jeux ;";
+    }
     $stmt = $pdo->prepare($request);
     $stmt->execute(
         $executeRequest

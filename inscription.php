@@ -19,5 +19,5 @@ if (!empty($_POST) && $_POST['nom'] !== null && $_POST['prenom'] !== null && $_P
         <h2 class="tex-white"><?php echo $e->getmessage() ?></h2>
 <?php
     }
-    header("Location: index.php");
+    redirect("index.php");
 }

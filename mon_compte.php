@@ -7,8 +7,7 @@ require_once __DIR__ . "/pdo/db.php";
 
 
 if (!isset($_SESSION['connected'])) {
-    header('Location: index.php');
-    exit;
+    redirect("index.php");
 }
 
 $idU = $_SESSION['id_u'];

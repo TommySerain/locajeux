@@ -2,8 +2,7 @@
 
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/layout/header.php";
-// require_once __DIR__ . "/classes/GamesDbFromFile.php";
-// require_once __DIR__ . "/data/fileToDb.php"; TODO: créer une page spécifque innitDB
+
 
 
 if (isset($_SESSION['connected'])) {
@@ -20,10 +19,10 @@ if (isset($_SESSION['connected'])) {
 }
 
 
-require_once __DIR__ . "/search-form.php";
+require_once __DIR__ . "/template/search-form.php";
 
 if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
-    $games=search($_GET['type'], $_GET['categories'], $_GET['nom'], $pdo);
+    $games = search($_GET['type'], $_GET['categories'], $_GET['nom'], $pdo);
 } else {
     $games = $pdo->query('SELECT * FROM jeux');
 }

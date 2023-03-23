@@ -1,10 +1,9 @@
 <?php
 session_start();
+require_once __DIR__ . "/fonctions/fonctions.php";
 
 if (empty($_POST) || empty($_POST['email']) || empty($_POST['mdp_u'])) {
-    header("Location: index.php");
-    exit;
-    //TODO: une fonction redirect
+    redirect("index.php");
 }
 require_once __DIR__ . "/pdo/db.php";
 //TODO:mot de passe haché
@@ -18,8 +17,7 @@ $stmt->execute(
 
 $user = $stmt->fetch();
 if (!$user) {
-    header("Location: index.php?erreur=1");
-    exit;
+    redirect("index.php?erreur=1"); //TODO:class Erreur ?
 }
 
 $_SESSION = [
@@ -27,5 +25,4 @@ $_SESSION = [
     'connected' => true
 ];
 
-header("Location: index.php");
-exit;
+redirect("index.php");
