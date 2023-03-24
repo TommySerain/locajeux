@@ -8,7 +8,6 @@ require_once __DIR__ . "/classes/Game.php";
 
 $id = intval($_GET['id']);
 
-
 $stmt = $pdo->prepare("SELECT * FROM jeux NATURAL JOIN types NATURAL JOIN categories WHERE id_j=:id");
 $stmt->execute(
     [

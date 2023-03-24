@@ -1,5 +1,4 @@
-<section id="modalCo" class=" vw-100 bg-dark bg-opacity-50 my-auto is-visible">
-    <!-- TODO:renommer la class is-invisible -->
+<section id="modalCo" class=" vw-100 bg-dark bg-opacity-50 my-auto is-invisible">
     <div class="container bg-light vw-75 mx-auto mt-3 rounded-5 p-3 pb-5 text-end">
         <a class="connexionClose">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" fill="currentColor" class="bi bi-x-circle pb-1" viewBox="0 0 16 16">
@@ -19,7 +18,7 @@
             </div>
             <div id="inscription" class="col-6 px-5">
                 <h2>Inscription</h2>
-                <form action="" class="d-flex flex-column" method="POST">
+                <form action="inscription.php" class="d-flex flex-column" method="POST">
                     <input class="form-control mt-3" type="text" name="nom" placeholder="Nom">
                     <input class="form-control mt-3" type="text" name="prenom" placeholder="Prénom">
                     <input class="form-control mt-3" type="date" name="birthdate" placeholder="date de naissance">
