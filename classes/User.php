@@ -12,9 +12,17 @@ class USER
         private string $email,
         private string $address,
         private string $mdp,
-
+        $pdo
     ) {
 
+        $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email=:email");
+        $stmt->execute(['email' => $this->email]);
+        $test = $stmt->fetch();
+        if ($test !== false) {
+            throw new DuplicateEmailException();
+
+            redirect("index.php?erreur=6");
+        }
     }
 
     public function getId(): int

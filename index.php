@@ -1,7 +1,9 @@
 <?php
 
+
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/layout/header.php";
+require_once __DIR__ . "/classes/ErrorMsg.php";
 
 
 
@@ -21,7 +23,12 @@ if (isset($_SESSION['connected'])) {
 
 if (isset($_GET['erreur'])) { ?>
     <div class="error">
-        <p class="text-center text-danger m-5"> Une erreur est survenue : <?php echo getErrorMsgForInscription(intval($_GET['erreur'])); ?></p>
+        <p class="text-center text-danger m-5"> Une erreur est survenue :
+            <?php
+            $msg = new ErrorMsg;
+            echo $msg->getErrorMsg(intval($_GET['erreur']));
+            ?>
+        </p>
     </div>
 <?php }
 
@@ -29,9 +36,9 @@ if (isset($_GET['erreur'])) { ?>
 require_once __DIR__ . "/template/search-form.php";
 
 if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
-$games = search($_GET['type'], $_GET['categories'], $_GET['nom'], $pdo);
+    $games = search($_GET['type'], $_GET['categories'], $_GET['nom'], $pdo);
 } else {
-$games = $pdo->query('SELECT * FROM jeux');
+    $games = $pdo->query('SELECT * FROM jeux');
 }
 ?>
 <section class="container">

@@ -37,6 +37,11 @@ function deconnexion(array $session): void
     header("Refresh: 1; URL=index.php");
 }
 
+function inscription(): void
+{
+    header("Refresh: 1; URL=index.php");
+}
+
 
 function search($type, $cat, $name, $pdo): object
 {
@@ -69,31 +74,4 @@ function search($type, $cat, $name, $pdo): object
         $executeRequest
     );
     return $stmt;
-}
-require_once __DIR__ . "/../classes/ErrorMsg.php";
-function getErrorMsgForInscription(int $code): string
-{
-    switch ($code) {
-        case ErrorMsg::CONNECTION_EMPTY:
-            return "Merci de remplir tous les champs de connexion";
-            break;
-        case ErrorMsg::MAIL_OR_PASS_CONNECTION_EMPTY:
-            return "Email ou mot de passe non-reseignés";
-            break;
-        case ErrorMsg::PASSWORD_OR_MAIL_INCORECT:
-            return "Email ou mot de passe incorect";
-            break;
-        case ErrorMsg::INSCRIPTION_EMPTY:
-            return "Merci de remplir tous les champs d'inscription";
-            break;
-        case ErrorMsg::BLANKS_FIELD:
-            return "Tous les champs inscriptions sont obligatoires";
-            break;
-        case ErrorMsg::DUPLICATE_EMAIL:
-            return "Cet email est déjà inscrit sur Locajeux";
-            break;
-
-        default:
-            return "Contactez l'administrateur de l'application";
-    }
 }
