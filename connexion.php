@@ -2,16 +2,16 @@
 session_start();
 require_once __DIR__ . "/fonctions/fonctions.php";
 
-if(empty($_POST)){
+if (empty($_POST)) {
     redirect("index.php?erreur=1");
 }
 
 if (empty($_POST['email']) || empty($_POST['mdp_u'])) {
     redirect("index.php?erreur=2");
 }
-//TODO:mot de passe haché
-$uMdp=$_POST['mdp_u'];
-$uMail=$_POST['email'];
+
+$uMdp = $_POST['mdp_u'];
+$uMail = $_POST['email'];
 require_once __DIR__ . "/pdo/db.php";
 
 $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email=:email");
@@ -24,8 +24,8 @@ $stmt->execute(
 $user = $stmt->fetch();
 $uMdpH = $user['mdp_u'];
 
-if (password_verify($uMdp, $uMdpH)===false) {
-    redirect("index.php?erreur=3"); //TODO:class Erreur ?
+if (password_verify($uMdp, $uMdpH) === false) {
+    redirect("index.php?erreur=3");
 }
 
 $_SESSION = [

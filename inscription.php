@@ -1,6 +1,4 @@
 <?php
-//TODO:inscription avec un lien et procéder à l'inscription dans inscription.php
-//TODO:créer une class USER
 
 
 require_once __DIR__ . "/classes/exceptions/DuplicateEmailException.php";
