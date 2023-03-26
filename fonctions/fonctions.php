@@ -14,18 +14,12 @@ function menuConnexionOuMonCompte(): void
             <a class="btn btn-success" href="mon_compte.php" aria-current="page">Mon compte</a>
         </li>
         <li>
-            <form class=" m-0" action="" method="POST">
-                <a class="btn btn-success mx-3" href="deconnexion.php">Déconnexion</a>
-            </form>
-            <?php
-            if (isset($_POST['deconnexion'])) {
-                deconnexion($_SESSION);
-            } ?>
+            <a class="btn btn-success mx-3" href="deconnexion.php">Déconnexion</a>
         </li>
     <?php
     } else {
     ?>
-        <button id="btnCo" class="btn btn-success" aria-current="page">Connexion</button>
+        <button id="btnCo" class="btn btn-success" aria-current="page">Connexion / inscription</button>
 <?php
     }
 };
