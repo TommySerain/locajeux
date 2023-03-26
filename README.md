@@ -80,4 +80,32 @@
 # Début du projet
 J'ai commencé par créer une petite "base de données" en fichier .txt en imaginant qu'un client aurait pu la fournir.  
 Je l'ai ensuite importer dans la base de donnée, dans un premier temps grâce à une requête query puis,  
-finalement par une requête préparée pour m'exercer sur ces requêtes qui seront plus sécurisés de manière générale.  
+finalement par une requête préparée pour m'exercer sur ces requêtes qui seront plus sécurisés de manière générale.
+
+# Création du moteur de recherche
+J'ai d'abbord créer le moteur de recherche avec 8 else/elseif pour gérer tous les cas possible.
+J'ai finalement mofifié ce moteur de recherche en créant la requête SQL en récupérant les données de la super global GET pour diminuer grandement le nombre de if et simplifier le code
+
+# Création de la page jeu
+J'ai créé la page jeu qui affichera toutes les infos du jeu
+Pour cela j'ai décidé simplement d'ajouter l'id du jeu voulu dans l'url afin de le récupérer dans le tableau GET
+J'ai ensuite ajouté un bouton Louer qui n'apparaitra que si le jeu est disponible et que l'utilisateur est connecté.
+
+# Création de la connexion
+J'ai créé un formulaire de connexion dans la modale
+le formualire envoie sur la page de connexion qui sert au traitement de la connexion.
+J'ai décider d'utiliser la super global SERVER avec [HTTP_REFERER] pour rediriger vers la page précédent la connexion pour améliorer l'experience utilisateur.
+
+# Création de la page déconnexion
+Idem que la connexion
+j'ai décidé d'utiliser Refresh: 1 dans la redirection pour que l'utilisateur reste 1 seconde sur la page éconnexion afin d'afficher un msg de déco.
+
+# Création de la page mon compte
+La page mon compte sert afficher les infos de l'utilisateur connecté.
+Elle servira également à indiquer le nombre de jeu que l'utilisateur à loué.
+
+# Création de l'insciption
+J'ai créé un formulaire d'inscription dans la modale
+le formualire envoie sur la page de inscription qui sert au traitement de l'inscription.
+Il a fallut créer plusieurs exceptions pour géer les erreurs tel que un email déjà inscrit, une mauvaise date, un email au mauvais format, l'inscription d'un mineur.
+J'ai décidé de créer plusieurs exceptions que j'ai regroupé avec l'exception InscriptionExeption afin de simplifier le code en évitant de multiple catch.
