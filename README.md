@@ -104,7 +104,7 @@ j'ai décidé d'utiliser Refresh: 1 dans la redirection pour que l'utilisateur r
 La page mon compte sert afficher les infos de l'utilisateur connecté.
 Elle servira également à indiquer le nombre de jeu que l'utilisateur à loué.
 
-# Création de l'insciption
+# Création de l'inscription
 J'ai créé un formulaire d'inscription dans la modale
 le formualire envoie sur la page de inscription qui sert au traitement de l'inscription.
 Il a fallut créer plusieurs exceptions pour géer les erreurs tel que un email déjà inscrit, une mauvaise date, un email au mauvais format, l'inscription d'un mineur.
