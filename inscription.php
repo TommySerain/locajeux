@@ -1,10 +1,8 @@
 <?php
 
-
-require_once __DIR__ . "/classes/exceptions/DuplicateEmailException.php";
+require_once __DIR__ . "/classes/exceptions/InsciptionException.php";
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/layout/header.php";
-
 
 if (empty($_POST)) {
     redirect("index.php?erreur=4");
@@ -32,8 +30,7 @@ try {
         $_POST['mdp'],
         $pdo
     );
-} catch (DuplicateEmailException $e) {
-    redirect("index.php?erreur=6");
+} catch (InscriptionException $e) {
 }
 
 $nom = $user->getName();
@@ -42,8 +39,6 @@ $birthdate = $user->getBirthdate();
 $email = $user->getEmail();
 $adresse = $user->getAddress();
 $mdp = $user->getMdp();
-
-
 
 $stmt = $pdo->prepare("INSERT INTO utilisateurs (name_u, firstname_u, naissance_u, email, address_u, mdp_u)
     VALUES (:nom,:firstname,:naissance,:email,:adresse,:mdp)");

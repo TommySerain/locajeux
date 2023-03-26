@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ ."/../ErrorMsg.php";
+require_once __DIR__ . "/../ErrorMsg.php";
 
 class MailPassConnectionIncorectException extends Exception
 {

@@ -1,10 +1,7 @@
 <?php
 
-
-
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/pdo/db.php";
-
 
 if (!isset($_SESSION['connected'])) {
     redirect("index.php");
@@ -30,13 +27,11 @@ $user = $stmt->fetch();
             <h3 class="">Prénom : <?php echo $user['firstname_u']; ?></h3>
         </div>
         <div class="d-flex justify-content-around">
-            <h3 class="">Date de naissance : <?php echo $user['naissance_u']; ?></h3>
+            <h3 class="">Date de naissance : <?php echo date_format(date_create($user['naissance_u']), "d/m/Y"); ?></h3>
             <h3 class="">Email : <?php echo $user['email']; ?></h3>
         </div>
     </div>
 </section>
-
-
 
 <?php
 require_once __DIR__ . "/layout/footer.php";

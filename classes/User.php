@@ -1,5 +1,8 @@
 <?php
-
+require_once __DIR__ . "/exceptions/DuplicateEmailException.php";
+require_once __DIR__ . "/exceptions/InvalidEmailException.php";
+require_once __DIR__ . "/exceptions/InvalidDateException.php";
+require_once __DIR__ . "/exceptions/InvalidAgeException.php";
 
 class USER
 {
@@ -20,8 +23,22 @@ class USER
         $test = $stmt->fetch();
         if ($test !== false) {
             throw new DuplicateEmailException();
-
             redirect("index.php?erreur=6");
+        }
+
+        if (!$this->isEmailValid()) {
+            throw new InvalidEmailException();
+            redirect("index.php?erreur=7");
+        }
+
+        if (!$this->isDateValid()) {
+            throw new InvalidDateException();
+            redirect("index.php?erreur=8");
+        }
+
+        if (!$this->isMajeur()) {
+            throw new InvalidAgeException();
+            redirect("index.php?erreur=9");
         }
     }
 
@@ -88,5 +105,26 @@ class USER
     {
         $this->mdp = $mdp;
         return $this;
+    }
+
+    private function isEmailValid(): bool
+    {
+        return filter_var($this->email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    private function isDateValid(): bool
+    {
+        $date = strtotime($this->birthdate);
+        return $date;
+    }
+
+    private function isMajeur(): bool
+    {
+        $today = date("Y-m-d");
+        $date = $this->birthdate;
+        $diff = date_diff(date_create($date), date_create($today));
+        intval($diff->format("y"));
+        $diff = intval($diff->format("%y"));
+        return $diff >= 18 ? true : false;
     }
 }

@@ -8,6 +8,9 @@ class ErrorMsg
     public const INSCRIPTION_EMPTY = 4;
     public const BLANKS_FIELD = 5;
     public const DUPLICATE_EMAIL = 6;
+    public const INVALID_EMAIL = 7;
+    public const INVALID_DATE = 8;
+    public const INVALID_AGE = 9;
 
     function getErrorMsg(int $code): string
     {
@@ -29,6 +32,15 @@ class ErrorMsg
                 break;
             case self::DUPLICATE_EMAIL:
                 return "Cet email est déjà inscrit sur Locajeux";
+                break;
+            case self::INVALID_EMAIL:
+                return "Cet email n'a pas un format valide";
+                break;
+            case self::INVALID_DATE:
+                return "La date de naissance n'a pas un format valide";
+                break;
+            case self::INVALID_AGE:
+                return "Il faut être majeur pour pouvoir s'inscrire";
                 break;
             default:
                 return "Contactez l'administrateur de l'application";

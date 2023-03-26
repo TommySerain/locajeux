@@ -1,11 +1,8 @@
 <?php
 
-// TODO:Exception pour email invalide et date invalide dans inscription
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/classes/ErrorMsg.php";
-
-
 
 if (isset($_SESSION['connected'])) {
     $stmt_user = $pdo->prepare('SELECT * FROM utilisateurs WHERE id_u=:id ');
@@ -20,7 +17,6 @@ if (isset($_SESSION['connected'])) {
 <?php
 }
 
-
 if (isset($_GET['erreur'])) { ?>
     <div class="error">
         <p class="text-center text-danger m-5"> Une erreur est survenue :
@@ -32,7 +28,6 @@ if (isset($_GET['erreur'])) { ?>
     </div>
 <?php }
 
-
 require_once __DIR__ . "/template/search-form.php";
 
 if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
@@ -41,6 +36,7 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
     $games = $pdo->query('SELECT * FROM jeux');
 }
 ?>
+
 <section class="container">
     <div class="row">
         <?php
@@ -59,6 +55,5 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
     </div>
 </section>
 <?php
-
 
 require_once __DIR__ . "/layout/footer.php";

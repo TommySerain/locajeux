@@ -1,12 +1,9 @@
 <?php
 $games = new GamesDbFRomFile;
-
 $stmt = $pdo->query("SELECT * FROM jeux");
-
 
 try {
     foreach ($games->getGames() as $game) {
-
         $extensionGame = $game->getIdP();
         if ($extensionGame === 0) {
             $extensionGame = null;
@@ -30,8 +27,4 @@ try {
         $stmt = $pdo->query("SELECT * FROM jeux");
     };
 } catch (PDOException $e) {
-    // echo $e->getmessage();
 }
-// $statement=$pdo->query("INSERT INTO jeux (id_j,name_j, img_j, rules_j, loc_j, caution_j, id_t, id_c)
-//         VALUES ('$idGame','$nameGame','$PictureGame','$rulesGame',$locGame,$cautionGame,$typeGame,$catGame)");
-//         $stmt= $pdo->query("SELECT * FROM jeux");

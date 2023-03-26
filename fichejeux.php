@@ -1,10 +1,8 @@
 <?php
 
-
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/classes/Game.php";
-
 
 $id = intval($_GET['id']);
 
@@ -27,6 +25,7 @@ $jeu = new GAME(
     intval($game['id_t']),
     intval($game['id_c'])
 );
+
 ?>
 <section class="container text-center">
     <h1 class="m-5 text-white">- <?php echo $jeu->getName(); ?> -</h1>
@@ -68,6 +67,7 @@ $jeu = new GAME(
         ?>
     </div>
 </section>
+
 <?php
 $jeu->setAvailable(true);
 // var_dump($jeu->isAvailable());
@@ -87,7 +87,5 @@ if (isset($_SESSION['connected'])) { ?>
         ?>
     </form>
 <?php }
-
-
 
 require_once __DIR__ . "/layout/footer.php";

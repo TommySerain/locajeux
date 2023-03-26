@@ -5,7 +5,6 @@ if (!empty($_GET) && (!empty($_GET['type']) || !empty($_GET['categories']) || !e
     $type = $_GET['type'];
     $cat = $_GET['categories'];
     $name = $_GET['nom'];
-
     $results = search($type, $cat, $name, $pdo);
 
     while ($game = $results->fetch()) {

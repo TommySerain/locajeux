@@ -59,11 +59,14 @@ function search($type, $cat, $name, $pdo): object
         $executeRequest['cat'] = $cat;
     }
     if (!empty($name)) {
+        $joinRequest[] = " ";
         $whereRequest[] = "name_j LIKE :nom";
         $executeRequest['nom'] = '%' . $name . '%';
     }
+
     $where = implode(' AND ', $whereRequest);
     $join = implode(' ', $joinRequest);
+
     if ($join !== "") {
         $request = "SELECT * FROM jeux $join WHERE $where;";
     } else {
