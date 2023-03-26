@@ -72,3 +72,13 @@ function search($type, $cat, $name, $pdo): object
     );
     return $stmt;
 }
+
+function datePlusOneWeek():string
+{
+    return date('Y-m-d',strtotime("+7 days", strtotime(date('Y-m-d'))));
+}
+
+function dateToFrenchFormat(string $date):string
+{
+    return date('d-m-Y',strtotime($date));
+}

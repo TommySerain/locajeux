@@ -24,14 +24,15 @@ $jeu = new GAME(
     intval($game['caution_j']),
     intval($game['id_j_p']),
     intval($game['id_t']),
-    intval($game['id_c'])
+    intval($game['id_c']),
+    $game['disponible']
 );
 
 ?>
 <section class="container text-center">
     <h1 class="m-5 text-white">- <?php echo $jeu->getName(); ?> -</h1>
     <img class="rounded-5 w-25 mb-5 " src="<?php echo $SOURCEIMG . $jeu->getPicture(); ?>" alt=""><br>
-    <a href="<?php echo $SOURCERULES.$jeu->getRules(); ?>" class="text-decoration-none  fw-bold fs-2 mb-5" target="_blank">Règles PDF</a>
+    <a href="<?php echo $SOURCERULES . $jeu->getRules(); ?>" class="text-decoration-none  fw-bold fs-2 mb-5" target="_blank">Règles PDF</a>
     <div class="my-5 mx-auto text-center bg-white w-50 rounded-4 fw-bold p-3">
         <h2>Infos</h2>
         <div class="d-flex justify-content-around">
@@ -70,23 +71,25 @@ $jeu = new GAME(
 </section>
 
 <?php
-$jeu->setAvailable(true);
+
 // var_dump($jeu->isAvailable());
 // var_dump($_SESSION);
 if (isset($_SESSION['connected'])) { ?>
-    <form action="" method="POST">
-        <?php
-        if ($jeu->isAvailable()) {
-        ?>
-            <input class="btn btn-success d-block mx-auto mb-5" name="louer" type="submit" value="Louer">
-        <?php
-        } else {
-        ?>
-            <input class="btn btn-success d-block mx-auto mb-5" name="reserver" type="submit" value="Reserver">
-        <?php
-        }
-        ?>
-    </form>
+    <?php
+    if ($jeu->isAvailable()) {
+    ?>
+        <div class="d-flex justify-content-center">
+            <a href="location.php?id=<?php echo $jeu->getId() ?>" class="btn btn-success mb-5">Louer</a>
+        </div>
+    <?php
+    } else {
+    ?>
+        <div class="d-flex justify-content-center">
+            <a href="" class="btn btn-success mb-5">Réserver</a>
+        </div>
+    <?php
+    }
+    ?>
 <?php }
 
 require_once __DIR__ . "/layout/footer.php";
