@@ -3,6 +3,7 @@
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/classes/ErrorMsg.php";
+require_once __DIR__ . "/template/source.php";
 
 if (isset($_SESSION['connected'])) {
     $stmt_user = $pdo->prepare('SELECT * FROM utilisateurs WHERE id_u=:id ');
@@ -45,7 +46,7 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
             <div class="col-3 p-0">
                 <div class="rounded-4 m-4 jeux">
                     <a href="fichejeux.php?id=<?php echo $game['id_j']; ?>">
-                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo $game['img_j']; ?>" alt="">
+                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo $SOURCEIMG . $game['img_j']; ?>" alt="">
                     </a>
                 </div>
             </div>

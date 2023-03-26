@@ -3,6 +3,7 @@
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/classes/Game.php";
+require_once __DIR__ . "/template/source.php";
 
 $id = intval($_GET['id']);
 
@@ -29,8 +30,8 @@ $jeu = new GAME(
 ?>
 <section class="container text-center">
     <h1 class="m-5 text-white">- <?php echo $jeu->getName(); ?> -</h1>
-    <img class="rounded-5 w-25 mb-5 " src="<?php echo $jeu->getPicture(); ?>" alt=""><br>
-    <a href="<?php echo $jeu->getRules(); ?>" class="text-decoration-none  fw-bold fs-2 mb-5" target="_blank">Règles PDF</a>
+    <img class="rounded-5 w-25 mb-5 " src="<?php echo $SOURCEIMG . $jeu->getPicture(); ?>" alt=""><br>
+    <a href="<?php echo $SOURCERULES.$jeu->getRules(); ?>" class="text-decoration-none  fw-bold fs-2 mb-5" target="_blank">Règles PDF</a>
     <div class="my-5 mx-auto text-center bg-white w-50 rounded-4 fw-bold p-3">
         <h2>Infos</h2>
         <div class="d-flex justify-content-around">
