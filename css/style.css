@@ -1,7 +1,7 @@
 #modalCo{
     height: 2000px;
 }
-.is-visible{
+.is-invisible{
     display: none;
 };
 .overflow{
@@ -11,11 +11,9 @@
     cursor: pointer;
 }
 .jeux{
-    box-shadow: 0px 0px 10px 5px black;
+    box-shadow: 0px 0px 10px 5px white;
+    transition-duration: 700ms;
 }
-/* #recherche{
-    background-color: grey;
-} */
-/* #navbar{
-    background-color: red !important;
-} */
+.jeux:hover{
+    scale: 1.1;
+}

@@ -7,12 +7,12 @@ let html=document.querySelector('html');
 
 connexion.style.position="absolute"
 btn.onclick =()=>{
-    connexion.classList.toggle('is-visible');
+    connexion.classList.toggle('is-invisible');
     html.style.overflow="hidden";
-    navbar.classList.toggle('is-visible');
+    navbar.classList.toggle('is-invisible');
 };
 btnClose.onclick =()=>{
-    connexion.classList.toggle('is-visible');
+    connexion.classList.toggle('is-invisible');
     html.style.overflow="visible";
-    navbar.classList.toggle('is-visible');
+    navbar.classList.toggle('is-invisible');
 };

@@ -12,110 +12,119 @@ class Game
         private int $idP,
         private int $type,
         private int $category,
-    )
-    {
-        
+        private bool $available = true
+    ) {
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
+    public function getLocP(): int
+    {
+        return $this->locP;
+    }
+    public function setLocP($locP): int
+    {
+        if ($locP !== "") {
+            return $this->locP = $locP;
+        }
+    }
 
-public function getId():int
-{
-    return $this->id;
-}
-public function setId($id):int
-{
-if ($id!==""){
-    return $this->id=$id;
-}
-}
+    public function getCautP(): int
+    {
+        return $this->cautP;
+    }
+    public function setCautP($cautP): int
+    {
+        if ($cautP !== "") {
+            return $this->cautP = $cautP;
+        }
+    }
 
-public function getLocP():int
-{
-    return $this->locP;
-}
-public function setLocP($locP):int
-{
-if ($locP!==""){
-    return $this->locP=$locP;
-}
-}
+    public function getIdP(): int
+    {
+        return $this->idP;
+    }
+    public function setIdP($idP): int
+    {
+        if ($idP !== "") {
+            return $this->idP = $idP;
+        }
+    }
 
-public function getCautP():int
-{
-    return $this->cautP;
-}
-public function setC($cautP):int
-{
-if ($cautP!==""){
-    return $this->cautP=$cautP;
-}
-}
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function setName($name): string
+    {
+        if ($name !== "") {
+            return $this->name = $name;
+        }
+    }
 
-public function getIdP():int
-{
-    return $this->idP;
-}
-public function setIdP($idP):int
-{
-if ($idP!==""){
-    return $this->idP=$idP;
-}
-}
+    public function getType(): string
+    {
+        return $this->type;
+    }
+    public function setType($type): string
+    {
+        if ($type !== "") {
+            return $this->type = $type;
+        }
+    }
 
-public function getName():string
-{
-    return $this->name;
-}
-public function setname($name):string
-{
-if ($name!==""){
-    return $this->name=$name;
-}
-}
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+    public function setCategory($category): string
+    {
+        if ($category !== "") {
+            return $this->category = $category;
+        }
+    }
 
-public function getType():string
-{
-    return $this->type;
-}
-public function setType($type):string
-{
-if ($type!==""){
-    return $this->type=$type;
-}
-}
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+    public function setPicture($picture): string
+    {
+        if ($picture !== "") {
+            return $this->picture = $picture;
+        }
+    }
 
-public function getCategory():string
-{
-    return $this->category;
-}
-public function setCategory($category):string
-{
-if ($category!==""){
-    return $this->category=$category;
-}
-}
+    public function getRules(): string
+    {
+        return $this->rules;
+    }
+    public function setRules($rules): string
+    {
+        if ($rules !== "") {
+            return $this->rules = $rules;
+        }
+    }
 
-public function getPicture():string
-{
-    return $this->picture;
-}
-public function setPicture($picture):string
-{
-if ($picture!==""){
-    return $this->picture=$picture;
-}
-}
+    public function getAvailable($availabe): bool
+    {
+        return $this->available;
+    }
+    public function setAvailable($available): bool
+    {
+        if ($available !== "") {
+            return $this->available = $available;
+        }
+    }
 
-public function getRules():string
-{
-    return $this->rules;
-}
-public function setRules($rules):string
-{
-if ($rules!==""){
-    return $this->rules=$rules;
-}
-}
-
+    public function isAvailable(): bool
+    {
+        if ($this->available) {
+            return true;
+        }
+        return false;
+    }
 }

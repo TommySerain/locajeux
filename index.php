@@ -1,56 +1,59 @@
 <?php
-require_once __DIR__."/classes/GamesDbFromFile.php";
-require_once __DIR__."/layout/header.php";
-require_once __DIR__."/pdo/db.php";
-require_once __DIR__."/data/fileToDb.php";
-require_once __DIR__."/connexion/modal.php";
-require_once __DIR__."/connexion/connexion.php";
 
+require_once __DIR__ . "/pdo/db.php";
+require_once __DIR__ . "/layout/header.php";
+require_once __DIR__ . "/classes/ErrorMsg.php";
 
-
-
-
-
+if (isset($_SESSION['connected'])) {
+    $stmt_user = $pdo->prepare('SELECT * FROM utilisateurs WHERE id_u=:id ');
+    $stmt_user->execute(
+        [
+            'id' => $_SESSION['id_u']
+        ]
+    );
+    $connectedUser = $stmt_user->fetch();
 ?>
-<section class="container mx-auto pb-4 rounded-5 w-50 mt-3 bg-danger" id="recherche">
-    <form class="d-flex mx-auto justify-content-center" action="">
-        <select class="form-control w-auto m-4 mb-0" name="type" id="">
-            <option value="">Type &nbsp &nbsp ⬇️</option>
+    <h2 class='text-white text-center m-5'>Bonjour <?php echo $connectedUser['firstname_u']; ?></h2>
+<?php
+}
+
+if (isset($_GET['erreur'])) { ?>
+    <div class="error">
+        <p class="text-center text-danger m-5"> Une erreur est survenue :
             <?php
-            $statement=$pdo->query('SELECT * FROM types');
-            while ($option=$statement->fetch()){
-                ?>
-            <option value="<?php echo $option['name_t'] ;?>"><?php echo $option['name_t'] ;?></option>
-            <?php
-            }
+            $msg = new ErrorMsg;
+            echo $msg->getErrorMsg(intval($_GET['erreur']));
             ?>
-        </select>
-        <select class="form-control w-auto m-4 mb-0" name="categories" id="">
-            <option value="">Catégorie ⬇️</option>
-            <?php
-            $statement=$pdo->query('SELECT * FROM categories');
-            while ($option=$statement->fetch()){
-                ?>
-            <option value="<?php echo $option['name_c'] ;?>"><?php echo $option['name_c'] ;?></option>
-            <?php
-            }
-            ?>
-        </select>
-        <input type="text" class="form-control w-auto m-4 mb-0" name="nom" id="">
-        <input type="submit" class=" w-auto mt-4 mb-0 bg-danger border-0 fs-3" value="🔍">
-    </form>
-</section>
+        </p>
+    </div>
+<?php }
+
+require_once __DIR__ . "/template/search-form.php";
+
+if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
+    $games = search($_GET['type'], $_GET['categories'], $_GET['nom'], $pdo);
+} else {
+    $games = $pdo->query('SELECT * FROM jeux');
+}
+?>
 
 <section class="container">
-<div class="row">
-<?php
-require_once __DIR__."/recherche/recherche.php";
-?>
-</div>
+    <div class="row">
+        <?php
+        while ($game = $games->fetch()) {
+        ?>
+            <div class="col-3 p-0">
+                <div class="rounded-4 m-4 jeux">
+                    <a href="fichejeux.php?id=<?php echo $game['id_j']; ?>">
+                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo $game['img_j']; ?>" alt="">
+                    </a>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
+    </div>
 </section>
-
 <?php
 
-
-require_once __DIR__."/layout/footer.php";
-
+require_once __DIR__ . "/layout/footer.php";
