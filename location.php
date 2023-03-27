@@ -13,18 +13,15 @@ NATURAL JOIN categories
 WHERE id_j=$id");
 $game = $stmt->fetch();
 
-if(!$game['disponible']){
-    redirect('fichejeux.php?id='.$game['id_j']);
+if (!$game['disponible']) {
+    redirect('fichejeux.php?id=' . $game['id_j']);
 }
 
 require_once __DIR__ . "/layout/header.php";
 
-
 if (!isset($_SESSION['connected'])) {
     redirect("index.php");
 }
-
-
 
 if ($game['id_j_p'] !== NULL) {
     $stmt = $pdo->query("SELECT jeux.*, categories.*, parent.name_j AS nom_p FROM jeux
@@ -47,13 +44,8 @@ WHERE jeux.id_j=$id");
     <?php
     }
     ?>
-        <a class="btn btn-success" href="">Louer</a>
+    <a class="btn btn-success" href="location-traitement.php?id=<?php echo $id; ?>">Louer</a>
 </div>
-
-
-
-
-
 
 <?php
 require_once __DIR__ . "/layout/footer.php";
