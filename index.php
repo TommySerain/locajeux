@@ -59,7 +59,7 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
             <div class="col-3 p-0">
                 <div class="rounded-4 bg-white m-4 jeux">
                     <a href="fichejeux.php?id=<?php echo $game->getId(); ?>">
-                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo $SOURCEIMG . $game->getPicture(); ?>" alt="">
+                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo SOURCE_IMG . $game->getPicture(); ?>" alt="">
                     </a>
                     <div class="p-2 text-center ">
                         <?php if ($game->isAvailable()) { ?>

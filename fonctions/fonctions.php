@@ -1,5 +1,5 @@
 <?php
-
+// TODO:vérifier les signatures de fonctions
 function redirect($page): void
 {
     header("location: $page");
@@ -37,7 +37,7 @@ function inscription(): void
 }
 
 
-function search($type, $cat, $name, $pdo): object
+function search(string $type, string $cat, string $name, PDO $pdo): object
 {
     $joinRequest = [];
     $whereRequest = [];
@@ -73,12 +73,12 @@ function search($type, $cat, $name, $pdo): object
     return $stmt;
 }
 
-function datePlusOneWeek():string
+function datePlusOneWeek(): string
 {
-    return date('Y-m-d',strtotime("+7 days", strtotime(date('Y-m-d'))));
+    return date('Y-m-d', strtotime("+7 days", strtotime(date('Y-m-d'))));
 }
 
-function dateToFrenchFormat(string $date):string
+function dateToFrenchFormat(string $date): string
 {
-    return date('d-m-Y',strtotime($date));
+    return date('d-m-Y', strtotime($date));
 }
