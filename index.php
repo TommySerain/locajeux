@@ -52,7 +52,7 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
                     </a>
                     <div class="p-2 text-center ">
                         <?php if ($game['disponible']) { ?>
-                            <p class="my-auto fw-bold">Disponible</p>
+                            <p class="my-auto fw-bold pb-4">Disponible</p>
                         <?php } else {
                             $date = $pdo->prepare("SELECT date_dispo FROM l_jeux_utilisateurs WHERE id_j=:idJ AND date_dispo IS NOT NULL");
                             $date->execute(

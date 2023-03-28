@@ -1,5 +1,5 @@
 <?php
-// TODO: gérer l'erreur si dans l'url on met un id inexistant.
+
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/fonctions/fonctions.php";
 
