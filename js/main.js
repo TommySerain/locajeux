@@ -1,6 +1,6 @@
 let connexion = document.querySelector("#modalCo");
 let btn = document.querySelector('#btnCo');
-let btnClose =document.querySelector('.connexionClose');
+let btnClose =document.querySelector('#connexionClose');
 let navbar=document.querySelector('#navbar');
 let html=document.querySelector('html');
 

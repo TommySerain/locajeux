@@ -1,5 +1,6 @@
 <?php
 // TODO:vérifier les signatures de fonctions
+// TODO: vérifier le nomage des fonctions
 function redirect($page): void
 {
     header("location: $page");
@@ -81,4 +82,24 @@ function datePlusOneWeek(): string
 function dateToFrenchFormat(string $date): string
 {
     return date('d-m-Y', strtotime($date));
+}
+
+function CalculateAverageNote(int $gameId, PDO $pdo): int
+{
+    $calc = $pdo->prepare("SELECT note FROM l_jeux_utilisateurs WHERE id_j=:gameId;");
+    $calc->execute(
+        [
+            'gameId' => $gameId
+        ]
+    );
+    $i = 0;
+    $total = 0;
+    while ($moy = $calc->fetch()) {
+        $i += 1;
+        $total += $moy['note'];
+    }
+    if ($i !== 0) {
+        return $total / $i;
+    }
+    return 0;
 }

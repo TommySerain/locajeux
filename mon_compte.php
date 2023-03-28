@@ -46,25 +46,39 @@ $nbJeuxLoues = 0
                 <div>
                     <?php
                     while ($game = $games->fetch()) {
-                        $nbJeuxLoues += 1
+                        $nbJeuxLoues += 1;
+                        $dateDispo = $game['date_dispo'];
+                        $dateLoc = $game['date_loc'];
                     ?>
+                        <!-- TODO: date en format fr -->
                         <div class="d-flex justify-content-between mb-3">
                             <p class="fs-5 fw-bold mb-0"><?php echo $game['name_j']; ?></p>
-                            <p class="fs-5 fw-bold mb-0"><?php echo $game['date_dispo']; ?></p>
-                            <p class="fs-5 fw-bold mb-0"><?php echo $game['date_loc']; ?></p>
+                            <?php
+                            if ($dateDispo) { ?>
+                                <p class="fs-5 fw-bold mb-0"><?php echo dateToFrenchFormat($dateDispo); ?></p>
+                            <?php }
+                            ?>
+                            <p class="fs-5 fw-bold mb-0"><?php echo dateToFrenchFormat($dateLoc); ?></p>
                             <?php
                             if ($game['date_dispo']) { ?>
-                                <a class="btn btn-success" href="rendre.php?id=<?php echo $game['id_j'] ;?>">Rendre le jeu</a>
-                            <?php
-                            }else{
-                                if(!$game['note']){?>
-                                    <a class="btn btn-success" href="">Noter le jeu</a>
+                                <a class="btn btn-success" href="rendre.php?id=<?php echo $game['id_j']; ?>">Rendre le jeu</a>
                                 <?php
-                                }
-                                if(!$game['com']){?>
-                                    <a class="btn btn-success" href="">Commenter le jeu</a>
+                            } else {
+                                if (!$game['note'] && !$game['com']) { ?>
+                                    <a class="btn btn-success" id='btnNote' href="note-com.php?id=<?php echo $game['id_j']; ?>">Noter / Commenter</a>
                                 <?php
-                                }
+                                } else { 
+                                    $notes=$pdo->prepare("SELECT note FROM l_jeux_utilisateurs WHERE id_u=:userId AND id_j=:gameId AND note IS NOT NULL;");
+                                    $notes->execute(
+                                        [
+                                            'userId'=>$idU,
+                                            'gameId'=>$game['id_j']
+                                        ]
+                                        );
+                                        $note=$notes->fetch();
+                                    ?>
+                                    <p class="fs-5 fw-bold mb-0">Ta note : <?php echo $note['note'] ;?></p>
+                            <?php }
                             }
                             ?>
                         </div>

@@ -2,7 +2,7 @@
 session_start();
 
 require_once __DIR__ . "/../fonctions/fonctions.php";
-require_once __DIR__ . "/../connexion/modal.php";
+require_once __DIR__ . "/../modal/connexion-inscription.php";
 ?>
 
 <!DOCTYPE html>
