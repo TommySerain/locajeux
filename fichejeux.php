@@ -1,9 +1,8 @@
 <?php
-
-require_once __DIR__ . "/layout/header.php";
+// TODO: gérer l'erreur si dans l'url on met un id inexistant.
 require_once __DIR__ . "/pdo/db.php";
-require_once __DIR__ . "/classes/Game.php";
-require_once __DIR__ . "/template/source.php";
+require_once __DIR__ . "/fonctions/fonctions.php";
+
 
 $id = intval($_GET['id']);
 
@@ -13,7 +12,17 @@ $stmt->execute(
         'id' => $id
     ]
 );
+
 $game = $stmt->fetch();
+
+if ($game === false) {
+    redirect("index.php");
+};
+
+require_once __DIR__ . "/layout/header.php";
+require_once __DIR__ . "/classes/Game.php";
+require_once __DIR__ . "/template/source.php";
+
 $idp = $game['id_j_p'];
 $jeu = new GAME(
     intval($game['id_j']),
@@ -81,15 +90,8 @@ if (isset($_SESSION['connected'])) { ?>
         <div class="d-flex justify-content-center">
             <a href="location.php?id=<?php echo $jeu->getId() ?>" class="btn btn-success mb-5">Louer</a>
         </div>
-    <?php
-    } else {
-    ?>
-        <div class="d-flex justify-content-center">
-            <a href="" class="btn btn-success mb-5">Réserver</a>
-        </div>
-    <?php
+<?php
     }
-    ?>
-<?php }
+}
 
 require_once __DIR__ . "/layout/footer.php";

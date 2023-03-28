@@ -35,7 +35,7 @@ require_once __DIR__ . "/template/search-form.php";
 if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
     $games = search($_GET['type'], $_GET['categories'], $_GET['nom'], $pdo);
 } else {
-    $games = $pdo->query('SELECT * FROM jeux');
+    $games = $pdo->query("SELECT * FROM jeux");
 }
 ?>
 
@@ -43,29 +43,27 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
     <div class="row">
         <?php
         while ($game = $games->fetch()) {
-            $game = new Game(
-                intval($game['id_j']),
-                $game['name_j'],
-                $game['img_j'],
-                $game['rules_j'],
-                intval($game['loc_j']),
-                intval($game['caution_j']),
-                intval($game['id_j_p']),
-                intval($game['id_t']),
-                intval($game['id_c']),
-                $game['disponible']
-            );
+            $gameId = intval($game['id_j'])
         ?>
             <div class="col-3 p-0">
                 <div class="rounded-4 bg-white m-4 jeux">
-                    <a href="fichejeux.php?id=<?php echo $game->getId(); ?>">
-                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo SOURCE_IMG . $game->getPicture(); ?>" alt="">
+                    <a href="fichejeux.php?id=<?php echo $gameId; ?>">
+                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo SOURCE_IMG . $game['img_j']; ?>" alt="">
                     </a>
                     <div class="p-2 text-center ">
-                        <?php if ($game->isAvailable()) { ?>
+                        <?php if ($game['disponible']) { ?>
                             <p class="my-auto fw-bold">Disponible</p>
-                        <?php } else { ?>
-                            <p class="my-auto fw-bold">Non Disponible</p>
+                        <?php } else {
+                            $date = $pdo->prepare("SELECT date_dispo FROM l_jeux_utilisateurs WHERE id_j=:idJ AND date_dispo IS NOT NULL");
+                            $date->execute(
+                                [
+                                    'idJ' => $gameId
+                                ]
+                            );
+                            $date = $date->fetch();
+                        ?>
+                            <p class="my-auto fw-bold">Date de disponibilité : </p>
+                            <p class="my-auto fw-bold text-danger"><?php echo dateToFrenchFormat($date['date_dispo']); ?></p>
                         <?php } ?>
                     </div>
                 </div>
