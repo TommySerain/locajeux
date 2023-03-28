@@ -67,17 +67,17 @@ $nbJeuxLoues = 0
                                 if (!$game['note'] && !$game['com']) { ?>
                                     <a class="btn btn-success" id='btnNote' href="note-com.php?id=<?php echo $game['id_j']; ?>">Noter / Commenter</a>
                                 <?php
-                                } else { 
-                                    $notes=$pdo->prepare("SELECT note FROM l_jeux_utilisateurs WHERE id_u=:userId AND id_j=:gameId AND note IS NOT NULL;");
+                                } else {
+                                    $notes = $pdo->prepare("SELECT note FROM l_jeux_utilisateurs WHERE id_u=:userId AND id_j=:gameId AND note IS NOT NULL;");
                                     $notes->execute(
                                         [
-                                            'userId'=>$idU,
-                                            'gameId'=>$game['id_j']
+                                            'userId' => $idU,
+                                            'gameId' => $game['id_j']
                                         ]
-                                        );
-                                        $note=$notes->fetch();
-                                    ?>
-                                    <p class="fs-5 fw-bold mb-0">Ta note : <?php echo $note['note'] ;?></p>
+                                    );
+                                    $note = $notes->fetch();
+                                ?>
+                                    <p class="fs-5 fw-bold mb-0">Ta note : <?php echo $note['note']; ?></p>
                             <?php }
                             }
                             ?>

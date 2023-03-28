@@ -21,9 +21,9 @@ $game = $stmt->fetch();
 if ($game === false) {
     redirect("index.php");
 };
-$note=intval($_POST['note']);
-$com=$_POST['com'];
-$noteComs=$pdo->prepare("UPDATE l_jeux_utilisateurs
+$note = intval($_POST['note']);
+$com = $_POST['com'];
+$noteComs = $pdo->prepare("UPDATE l_jeux_utilisateurs
                             SET note=:note, com=:com
                             WHERE id_u=:userId
                             AND id_j=:gameId
@@ -32,10 +32,10 @@ $noteComs=$pdo->prepare("UPDATE l_jeux_utilisateurs
                             AND date_dispo IS NULL;");
 $noteComs->execute(
     [
-        'note'=>$note,
-        'com'=>$com,
-        'userId'=>$userId,
-        'gameId'=>$gameId
+        'note' => $note,
+        'com' => $com,
+        'userId' => $userId,
+        'gameId' => $gameId
     ]
-    );
+);
 redirect("mon_compte.php");

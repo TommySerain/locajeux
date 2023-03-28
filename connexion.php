@@ -34,7 +34,7 @@ $_SESSION = [
 ];
 
 // var_dump($_SERVER);
-if(!str_contains($_SERVER["HTTP_REFERER"],"index.php")){
+if (!str_contains($_SERVER["HTTP_REFERER"], "index.php")) {
     redirect("$_SERVER[HTTP_REFERER]");
 }
 

@@ -33,9 +33,9 @@ $majJeu->execute(
 $majDateDispo = $pdo->prepare("UPDATE l_jeux_utilisateurs SET date_dispo=NULL WHERE id_j=:gameId AND id_u=:userId");
 $majDateDispo->execute(
     [
-        'gameId'=>$gameId,
-        'userId'=>$userId
+        'gameId' => $gameId,
+        'userId' => $userId
     ]
-    );
+);
 
 redirect("mon_compte.php");

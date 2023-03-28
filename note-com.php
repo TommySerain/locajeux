@@ -1,5 +1,5 @@
 <?php
-
+// TODO:gérer les erreurs (notemment en cas de note pas au bon format)
 require_once __DIR__ . "/fonctions/fonctions.php";
 if (!isset($_GET['id'])) {
     redirect("index.php");
@@ -25,14 +25,14 @@ if (!isset($_SESSION['connected'])) {
     <h1 class="text-white text-center mt-3 fs-3">Tu as loué <?php echo $game['name_j']; ?><br> tu aimerais le noter et le commenter ? </h1>
     <div class="row g-5">
         <div class="col-8 mx-auto bg-white p-5 pb-3 rounded-4">
-            <form class="text-center" action="note-com-traitement.php?id=<?php echo $gameId ;?>" method="POST">
+            <form class="text-center" action="note-com-traitement.php?id=<?php echo $gameId; ?>" method="POST">
                 <h2 class="mb-4 fs-3">Ta note pour ce jeu</h2>
                 <label class="fs-4" for="1">1</label>
-                <input class="me-4" type="radio" name="note" value="1" id="1" >
+                <input class="me-4" type="radio" name="note" value="1" id="1">
                 <label class="fs-4" for="2">2</label>
                 <input class="me-4" type="radio" name="note" value="2" id="2">
                 <label class="fs-4" for="3">3</label>
-                <input class="me-4" type="radio" name="note" value="3" id="3"required>
+                <input class="me-4" type="radio" name="note" value="3" id="3" required>
                 <label class="fs-4" for="4">4</label>
                 <input class="me-4" type="radio" name="note" value="4" id="4">
                 <label class="fs-4" for="5">5</label>

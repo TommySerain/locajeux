@@ -84,7 +84,7 @@ function dateToFrenchFormat(string $date): string
     return date('d-m-Y', strtotime($date));
 }
 
-function CalculateAverageNote(int $gameId, PDO $pdo): int
+function CalculateAverageNote(int $gameId, PDO $pdo): float
 {
     $calc = $pdo->prepare("SELECT note FROM l_jeux_utilisateurs WHERE id_j=:gameId;");
     $calc->execute(
@@ -99,7 +99,7 @@ function CalculateAverageNote(int $gameId, PDO $pdo): int
         $total += $moy['note'];
     }
     if ($i !== 0) {
-        return $total / $i;
+        return round($total / $i, 1);
     }
     return 0;
 }
