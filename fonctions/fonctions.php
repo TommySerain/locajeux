@@ -119,13 +119,13 @@ function displayAccount(array $user): void
 ?>
     <div class="row bg-white justify-content-center text-dark py-5 rounded-4 mt-5">
         <h2 class="text-center mb-5">Mes infos</h2>
-        <div class="d-flex justify-content-around text-center mb-5">
-            <p class="fs-5 fw-bold">Nom <br><?php echo $user['name_u']; ?></p>
-            <p class="fs-5 fw-bold">Prénom <br><?php echo $user['firstname_u']; ?></p>
+        <div class="d-flex justify-content-around text-center mb-3">
+            <p class="fs-4 fw-bold">Nom <br><?php echo $user['name_u']; ?></p>
+            <p class="fs-4 fw-bold">Prénom <br><?php echo $user['firstname_u']; ?></p>
         </div>
         <div class="d-flex justify-content-around text-center">
-            <p class="fs-5 fw-bold">Date de naissance <br><?php echo date_format(date_create($user['naissance_u']), "d/m/Y"); ?></p>
-            <p class="fs-5 fw-bold">Email <br><?php echo $user['email']; ?></p>
+            <p class="fs-4 fw-bold">Date de naissance <br><?php echo date_format(date_create($user['naissance_u']), "d/m/Y"); ?></p>
+            <p class="fs-4 fw-bold">Email <br><?php echo $user['email']; ?></p>
         </div>
     </div>
 <?php
