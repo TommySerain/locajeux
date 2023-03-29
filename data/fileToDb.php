@@ -1,6 +1,5 @@
 <?php
 $games = new GamesDbFRomFile;
-$stmt = $pdo->query("SELECT * FROM jeux");
 
 try {
     foreach ($games->getGames() as $game) {
@@ -24,7 +23,6 @@ try {
                 'id_c' => $game->getCategory(),
             ]
         );
-        $stmt = $pdo->query("SELECT * FROM jeux");
     };
 } catch (PDOException $e) {
 }

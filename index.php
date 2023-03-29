@@ -19,16 +19,9 @@ if (isset($_SESSION['connected'])) {
 <?php
 }
 
-if (isset($_GET['erreur'])) { ?>
-    <div class="error">
-        <p class="text-center text-danger m-5"> Une erreur est survenue :
-            <?php
-            $msg = new ErrorMsg;
-            echo $msg->getErrorMsg(intval($_GET['erreur']));
-            ?>
-        </p>
-    </div>
-<?php }
+if (isset($_GET['erreur'])) {
+    errorDisplay();
+}
 
 require_once __DIR__ . "/template/search-form.php";
 

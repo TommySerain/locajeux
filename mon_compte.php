@@ -28,17 +28,9 @@ $nbJeuxLoues = 0
     <h1 class="text-center">Mon compte LocaJeux</h1>
     <div class="row g-5">
         <div class="col-6">
-            <div class="row bg-white justify-content-center text-dark py-5 rounded-4 mt-5">
-                <h2 class="text-center mb-5">Mes infos</h2>
-                <div class="d-flex justify-content-around text-center mb-5">
-                    <p class="fs-5 fw-bold">Nom <br><?php echo $user['name_u']; ?></p>
-                    <p class="fs-5 fw-bold">Prénom <br><?php echo $user['firstname_u']; ?></p>
-                </div>
-                <div class="d-flex justify-content-around text-center">
-                    <p class="fs-5 fw-bold">Date de naissance <br><?php echo date_format(date_create($user['naissance_u']), "d/m/Y"); ?></p>
-                    <p class="fs-5 fw-bold">Email <br><?php echo $user['email']; ?></p>
-                </div>
-            </div>
+            <?php
+            displayAccount($user);
+            ?>
         </div>
         <div class="col-6">
             <div class="row bg-white justify-content-center text-dark py-5 rounded-4 mt-5">
@@ -50,9 +42,8 @@ $nbJeuxLoues = 0
                         $dateDispo = $game['date_dispo'];
                         $dateLoc = $game['date_loc'];
                     ?>
-                        <!-- TODO: date en format fr -->
                         <div class="d-flex justify-content-between mb-3">
-                            <p class="fs-5 fw-bold mb-0"><?php echo $game['name_j']; ?></p>
+                            <a class="fs-5 fw-bold mb-0 text-decoration-none" href="fichejeux.php?id=<?php echo $game['id_j']; ?>"><?php echo $game['name_j']; ?></a>
                             <?php
                             if ($dateDispo) { ?>
                                 <p class="fs-5 fw-bold mb-0"><?php echo dateToFrenchFormat($dateDispo); ?></p>

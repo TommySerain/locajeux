@@ -5,19 +5,30 @@ require_once __DIR__ . "/fonctions/fonctions.php";
 if (!isset($_GET['id']) || (!isset($_POST['note']) && !isset($_POST['com']))) {
     redirect("index.php");
 }
-require_once __DIR__ . "/pdo/db.php";
 
+require_once __DIR__ . "/pdo/db.php";
 $userId = $_SESSION['id_u'];
 $gameId = intval($_GET['id']);
 
-// TODO:modifier le nom des stmt de vérification en verif
-$stmt = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
-$stmt->execute(
+if (empty($_POST['note']) || empty($_POST['com'])) {
+    redirect("note-com.php?id=$gameId&erreur=11");
+}
+
+if ($_POST['note'] !== '1' && $_POST['note'] !== '2' && $_POST['note'] !== '3' && $_POST['note'] !== '4' && $_POST['note'] !== '5') {
+    redirect("note-com.php?id=$gameId&erreur=10");
+}
+
+if (strlen(($_POST['com'])) > 200) {
+    redirect("note-com.php?id=$gameId&erreur=12");
+}
+
+$verif = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
+$verif->execute(
     [
         "id" => $gameId
     ]
 );
-$game = $stmt->fetch();
+$game = $verif->fetch();
 if ($game === false) {
     redirect("index.php");
 };

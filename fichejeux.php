@@ -1,9 +1,9 @@
 <?php
-// TODO: ajouter les commentaires
+// TODO: factoriser
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/fonctions/fonctions.php";
-
-
+// TODO:titre colonne mon compte
+// TODO:prévenir qu'il faut être majeur
 $id = intval($_GET['id']);
 
 $stmt = $pdo->prepare("SELECT * FROM jeux NATURAL JOIN types NATURAL JOIN categories WHERE id_j=:id");
@@ -36,11 +36,17 @@ $jeu = new GAME(
     intval($game['id_c']),
     $game['disponible']
 );
-
+$note = CalculateAverageNote($jeu->getId(), $pdo);
 ?>
 <section class="container text-center">
     <h1 class="m-5 text-white">- <?php echo $jeu->getName(); ?> -</h1>
-    <h2 class="fs-4 text-white">Note des utilisateurs : <?php echo CalculateAverageNote($jeu->getId(), $pdo); ?></h2>
+    <?php
+    if ($note === 0.0) { ?>
+        <h2 class="fs-4 text-white">Note des utilisateurs : non noté</h2>
+    <?php } else {
+    ?>
+        <h2 class="fs-4 text-white">Note des utilisateurs : <?php echo $note; ?></h2>
+    <?php } ?>
     <img class="rounded-5 w-25 mb-5 " src="<?php echo SOURCE_IMG . $jeu->getPicture(); ?>" alt=""><br>
     <a href="<?php echo SOURCE_RULES . $jeu->getRules(); ?>" class="text-decoration-none  fw-bold fs-2 mb-5" target="_blank">Règles PDF</a>
     <div class="my-5 mx-auto text-center bg-white w-50 rounded-4 fw-bold p-3">

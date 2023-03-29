@@ -8,9 +8,15 @@ if (empty($_GET)) {
 require_once __DIR__ . "/pdo/db.php";
 
 $id = intval($_GET['id']);
-$stmt = $pdo->query("SELECT * FROM jeux
+$stmt = $pdo->prepare("SELECT * FROM jeux
 NATURAL JOIN categories
-WHERE id_j=$id");
+WHERE id_j=:id");
+$stmt->execute(
+    [
+        'id' => $id
+    ]
+);
+
 $game = $stmt->fetch();
 
 if (!$game['disponible']) {
@@ -24,10 +30,16 @@ if (!isset($_SESSION['connected'])) {
 }
 
 if ($game['id_j_p'] !== NULL) {
-    $stmt = $pdo->query("SELECT jeux.*, categories.*, parent.name_j AS nom_p FROM jeux
-NATURAL JOIN categories
-INNER JOIN jeux AS parent ON jeux.id_j_p=parent.id_j
-WHERE jeux.id_j=$id");
+    $stmt = $pdo->prepare("SELECT jeux.*, categories.*, parent.name_j AS nom_p FROM jeux
+    NATURAL JOIN categories
+    INNER JOIN jeux AS parent ON jeux.id_j_p=parent.id_j
+    WHERE jeux.id_j=:id");
+    $stmt->execute(
+        [
+            'id' => $id
+        ]
+    );
+
     $game = $stmt->fetch();
 }
 

@@ -53,7 +53,7 @@ $stmt->execute(
         'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
     ]
 );
-inscription();
+redirectInscription();
 ?>
 <h1 class="text-center text-white m-5"> Inscription réussie</h1>
 <?php

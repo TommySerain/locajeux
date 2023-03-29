@@ -1,5 +1,4 @@
 <?php
-// TODO:gérer les erreurs (notemment en cas de note pas au bon format)
 require_once __DIR__ . "/fonctions/fonctions.php";
 if (!isset($_GET['id'])) {
     redirect("index.php");
@@ -17,10 +16,14 @@ if ($game === false) {
     redirect("index.php");
 };
 require_once __DIR__ . "/layout/header.php";
+require_once __DIR__ . "/classes/ErrorMsg.php";
 if (!isset($_SESSION['connected'])) {
     redirect("index.php");
 }
-?>
+if (isset($_GET['erreur'])) {
+    errorDisplay();
+} ?>
+
 <section class="container">
     <h1 class="text-white text-center mt-3 fs-3">Tu as loué <?php echo $game['name_j']; ?><br> tu aimerais le noter et le commenter ? </h1>
     <div class="row g-5">

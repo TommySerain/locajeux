@@ -11,6 +11,9 @@ class ErrorMsg
     public const INVALID_EMAIL = 7;
     public const INVALID_DATE = 8;
     public const INVALID_AGE = 9;
+    public const INVALID_NOTE = 10;
+    public const NOTE_COM_EMPTY = 11;
+    public const INVALID_COM_SIZE = 12;
 
     function getErrorMsg(int $code): string
     {
@@ -41,6 +44,15 @@ class ErrorMsg
                 break;
             case self::INVALID_AGE:
                 return "Il faut être majeur pour pouvoir s'inscrire";
+                break;
+            case self::INVALID_NOTE:
+                return "La note doit être un chiffre entier entre 1 et 5 ";
+                break;
+            case self::NOTE_COM_EMPTY:
+                return "Tous les champs doivent être remplis";
+                break;
+            case self::INVALID_COM_SIZE:
+                return "Le commentaire doit faire 200 caractères maximum";
                 break;
             default:
                 return "Contactez l'administrateur de l'application";
