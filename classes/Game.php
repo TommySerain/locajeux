@@ -127,4 +127,13 @@ class Game
         }
         return false;
     }
+
+    public function isExtension(): mixed
+    {
+        if ($this->idP !== NULL) {
+            return $this->idP;
+        } else {
+            return false;
+        }
+    }
 }
