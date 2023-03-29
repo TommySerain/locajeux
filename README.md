@@ -77,35 +77,58 @@
 ## MPD
 ![Schéma MPD](img/mpd-mysql.png "MPD")
 
-# Début du projet
+# Création des pages
+
+## Début du projet
 J'ai commencé par créer une petite "base de données" en fichier .txt en imaginant qu'un client aurait pu la fournir.  
 Je l'ai ensuite importer dans la base de donnée, dans un premier temps grâce à une requête query puis,  
 finalement par une requête préparée pour m'exercer sur ces requêtes qui seront plus sécurisés de manière générale.
 
-# Création du moteur de recherche
+## Création du moteur de recherche
 J'ai d'abbord créer le moteur de recherche avec 8 else/elseif pour gérer tous les cas possible.
 J'ai finalement mofifié ce moteur de recherche en créant la requête SQL en récupérant les données de la super global GET pour diminuer grandement le nombre de if et simplifier le code
 
-# Création de la page jeu
+## Création de la page jeu
 J'ai créé la page jeu qui affichera toutes les infos du jeu
 Pour cela j'ai décidé simplement d'ajouter l'id du jeu voulu dans l'url afin de le récupérer dans le tableau GET
 J'ai ensuite ajouté un bouton Louer qui n'apparaitra que si le jeu est disponible et que l'utilisateur est connecté.
 
-# Création de la connexion
+## Création de la connexion
 J'ai créé un formulaire de connexion dans la modale
 le formualire envoie sur la page de connexion qui sert au traitement de la connexion.
 J'ai décider d'utiliser la super global SERVER avec [HTTP_REFERER] pour rediriger vers la page précédent la connexion pour améliorer l'experience utilisateur.
 
-# Création de la page déconnexion
+## Création de la page déconnexion
 Idem que la connexion
 j'ai décidé d'utiliser Refresh: 1 dans la redirection pour que l'utilisateur reste 1 seconde sur la page éconnexion afin d'afficher un msg de déco.
 
-# Création de la page mon compte
+## Création de la page mon compte
 La page mon compte sert afficher les infos de l'utilisateur connecté.
 Elle servira également à indiquer le nombre de jeu que l'utilisateur à loué.
 
-# Création de l'inscription
+## Création de l'inscription
 J'ai créé un formulaire d'inscription dans la modale
 le formualire envoie sur la page de inscription qui sert au traitement de l'inscription.
 Il a fallut créer plusieurs exceptions pour géer les erreurs tel que un email déjà inscrit, une mauvaise date, un email au mauvais format, l'inscription d'un mineur.
 J'ai décidé de créer plusieurs exceptions que j'ai regroupé avec l'exception InscriptionExeption afin de simplifier le code en évitant de multiple catch.
+
+# Affichage des jeux sur l'index
+J'ai simplement fais un while après la requête SQL pour afficher tous mes jeux.  
+Dans un premier temps je n'affichais que les images des jeux et aucunes autres infos.  
+Donc aucun soucis jusque là.  
+J'ai voulu par la suite ajouter l'info si le jeu est disponible ou non j'ai donc décidé de créer une instance de la class Game avec la méthod isAvailable.  
+Ce qui fonctionnait tant que je voulais juste afficher disponible ou non disponible.  
+![screen](img/Game.png "screen")
+Plus tard j'ai décider d'afficher disponilbe si le jeu l'étais et la date à laquelle il sera dispo dans le cas contraire.  
+Et là il y à deux soucis, 1 la class Game n'a pas cette propriété et je me sers de cette class pour autre chose ou il ne faut pas cette propriété,  
+                          2 je ne stock cette information nulle part !  
+J'ai donc décidé de modifier ma base de donnée : 
+  Dans la tale de liaison jeux/utilisateur :
+    + ajout d'une colonne date de location
+    + ajout d'une colonne date de rendu
+    + ajout d'une colonne id de location
+Les deux premières vont me servir à stocké les deux dates dont j'ai besoin,  
+J'ai eu besoin de la troisième plus tard car j'avais utilisé l'id-utilisateurs+l'id_jeux pour faire une clé composite,  
+mais si un joueur loue deux fois le même jeu on se retrouve avec deux fois la même combinaison de clé et donc un doublon de clé primaire.  
+j'ai donc eu besoin de créer un identifiant de location pour paliker ce problème.
+![nouveau schéma mdp](img/nouveau_mdp.png "MPD")
