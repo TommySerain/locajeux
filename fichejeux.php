@@ -93,7 +93,7 @@ if (isset($_SESSION['connected'])) { ?>
         <div class="d-flex justify-content-center">
             <a href="location.php?id=<?php echo $jeu->getId() ?>" class="btn btn-success mb-5">Louer</a>
         </div>
-    <?php
+<?php
     }
 }
 
@@ -106,14 +106,11 @@ $coms->execute(
         'gameId' => $jeu->getId()
     ]
 );
-while ($com = $coms->fetch()) { ?>
-    <section class="container bg-white rounded-4 mb-5 p-4">
-        <div class="row">
-            <p class="text-end">Utilisateur : <?php echo $com['firstname_u']; ?></p>
-            <p>Commentaire : </p>
-            <p class="fw-bold"><?php echo $com['com']; ?></p>
-        </div>
-    </section>
-<?php }
+
+require_once __DIR__ . "/classes/Com.php";
+while ($com = $coms->fetch()) {
+    $commentaire = new Com($com['firstname_u'], $com['com']);
+    $commentaire->displayCom();
+}
 
 require_once __DIR__ . "/layout/footer.php";
