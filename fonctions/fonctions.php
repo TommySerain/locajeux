@@ -119,7 +119,7 @@ function displayAccount(array $user): void
 ?>
     <div class="row bg-white justify-content-center text-dark py-5 rounded-4 mt-5">
         <h2 class="text-center mb-5">Mes infos</h2>
-        <div class="d-flex justify-content-around text-center mb-3">
+        <div class="d-flex justify-content-around text-center mb-">
             <p class="fs-4 fw-bold">Nom <br><?php echo $user['name_u']; ?></p>
             <p class="fs-4 fw-bold">Prénom <br><?php echo $user['firstname_u']; ?></p>
         </div>
