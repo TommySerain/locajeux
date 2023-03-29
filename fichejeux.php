@@ -2,7 +2,6 @@
 // TODO: factoriser
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/fonctions/fonctions.php";
-// TODO:prévenir qu'il faut être majeur
 $id = intval($_GET['id']);
 
 $stmt = $pdo->prepare("SELECT * FROM jeux NATURAL JOIN types NATURAL JOIN categories WHERE id_j=:id");
