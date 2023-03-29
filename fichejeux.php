@@ -1,9 +1,9 @@
 <?php
-
-require_once __DIR__ . "/layout/header.php";
+// TODO: factoriser
 require_once __DIR__ . "/pdo/db.php";
-require_once __DIR__ . "/classes/Game.php";
-
+require_once __DIR__ . "/fonctions/fonctions.php";
+// TODO:titre colonne mon compte
+// TODO:prévenir qu'il faut être majeur
 $id = intval($_GET['id']);
 
 $stmt = $pdo->prepare("SELECT * FROM jeux NATURAL JOIN types NATURAL JOIN categories WHERE id_j=:id");
@@ -12,7 +12,17 @@ $stmt->execute(
         'id' => $id
     ]
 );
+
 $game = $stmt->fetch();
+
+if ($game === false) {
+    redirect("index.php");
+};
+
+require_once __DIR__ . "/layout/header.php";
+require_once __DIR__ . "/classes/Game.php";
+require_once __DIR__ . "/template/source.php";
+
 $idp = $game['id_j_p'];
 $jeu = new GAME(
     intval($game['id_j']),
@@ -23,14 +33,22 @@ $jeu = new GAME(
     intval($game['caution_j']),
     intval($game['id_j_p']),
     intval($game['id_t']),
-    intval($game['id_c'])
+    intval($game['id_c']),
+    $game['disponible']
 );
-
+$note = CalculateAverageNote($jeu->getId(), $pdo);
 ?>
 <section class="container text-center">
     <h1 class="m-5 text-white">- <?php echo $jeu->getName(); ?> -</h1>
-    <img class="rounded-5 w-25 mb-5 " src="<?php echo $jeu->getPicture(); ?>" alt=""><br>
-    <a href="<?php echo $jeu->getRules(); ?>" class="text-decoration-none  fw-bold fs-2 mb-5" target="_blank">Règles PDF</a>
+    <?php
+    if ($note === 0.0) { ?>
+        <h2 class="fs-4 text-white">Note des utilisateurs : non noté</h2>
+    <?php } else {
+    ?>
+        <h2 class="fs-4 text-white">Note des utilisateurs : <?php echo $note; ?></h2>
+    <?php } ?>
+    <img class="rounded-5 w-25 mb-5 " src="<?php echo SOURCE_IMG . $jeu->getPicture(); ?>" alt=""><br>
+    <a href="<?php echo SOURCE_RULES . $jeu->getRules(); ?>" class="text-decoration-none  fw-bold fs-2 mb-5" target="_blank">Règles PDF</a>
     <div class="my-5 mx-auto text-center bg-white w-50 rounded-4 fw-bold p-3">
         <h2>Infos</h2>
         <div class="d-flex justify-content-around">
@@ -69,23 +87,35 @@ $jeu = new GAME(
 </section>
 
 <?php
-$jeu->setAvailable(true);
-// var_dump($jeu->isAvailable());
-// var_dump($_SESSION);
+
 if (isset($_SESSION['connected'])) { ?>
-    <form action="" method="POST">
-        <?php
-        if ($jeu->isAvailable()) {
-        ?>
-            <input class="btn btn-success d-block mx-auto mb-5" name="louer" type="submit" value="Louer">
-        <?php
-        } else {
-        ?>
-            <input class="btn btn-success d-block mx-auto mb-5" name="reserver" type="submit" value="Reserver">
-        <?php
-        }
-        ?>
-    </form>
+    <?php
+    if ($jeu->isAvailable()) {
+    ?>
+        <div class="d-flex justify-content-center">
+            <a href="location.php?id=<?php echo $jeu->getId() ?>" class="btn btn-success mb-5">Louer</a>
+        </div>
+    <?php
+    }
+}
+
+$coms = $pdo->prepare("SELECT com, firstname_u FROM l_jeux_utilisateurs
+                        NATURAL JOIN utilisateurs
+                        WHERE id_j=:gameId
+                        AND com IS NOT NULL");
+$coms->execute(
+    [
+        'gameId' => $jeu->getId()
+    ]
+);
+while ($com = $coms->fetch()) { ?>
+    <section class="container bg-white rounded-4 mb-5 p-4">
+        <div class="row">
+            <p class="text-end">Utilisateur : <?php echo $com['firstname_u']; ?></p>
+            <p>Commentaire : </p>
+            <p class="fw-bold"><?php echo $com['com']; ?></p>
+        </div>
+    </section>
 <?php }
 
 require_once __DIR__ . "/layout/footer.php";

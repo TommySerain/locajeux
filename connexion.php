@@ -33,4 +33,8 @@ $_SESSION = [
     'connected' => true
 ];
 
-redirect("$_SERVER[HTTP_REFERER]");
+if (!str_contains($_SERVER["HTTP_REFERER"], "index.php")) {
+    redirect("$_SERVER[HTTP_REFERER]");
+}
+
+redirect("mon_compte.php");

@@ -7,7 +7,7 @@ if (!isset($_SESSION['connected'])) {
     redirect('index.php');
 };
 
-deconnexion($_SESSION);
+redirectDeconnexion($_SESSION);
 
 require_once __DIR__ . "/layout/header.php";
 

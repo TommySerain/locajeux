@@ -1,5 +1,6 @@
 <?php
-
+// TODO:vérifier les signatures de fonctions
+// TODO: vérifier le nommage des fonctions
 function redirect($page): void
 {
     header("location: $page");
@@ -20,24 +21,24 @@ function menuConnexionOuMonCompte(): void
     } else {
     ?>
         <button id="btnCo" class="btn btn-success" aria-current="page">Connexion / inscription</button>
-<?php
+    <?php
     }
 };
 
-function deconnexion(array $session): void
+function redirectDeconnexion(array $session): void
 {
     $session = [];
     session_destroy();
     header("Refresh: 1; URL=index.php");
 }
 
-function inscription(): void
+function redirectInscription(): void
 {
     header("Refresh: 1; URL=index.php");
 }
 
 
-function search($type, $cat, $name, $pdo): object
+function search(string $type, string $cat, string $name, PDO $pdo): object
 {
     $joinRequest = [];
     $whereRequest = [];
@@ -71,4 +72,61 @@ function search($type, $cat, $name, $pdo): object
         $executeRequest
     );
     return $stmt;
+}
+
+function datePlusOneWeek(): string
+{
+    return date('Y-m-d', strtotime("+7 days", strtotime(date('Y-m-d'))));
+}
+
+function dateToFrenchFormat(string $date): string
+{
+    return date('d-m-Y', strtotime($date));
+}
+
+function CalculateAverageNote(int $gameId, PDO $pdo): float
+{
+    $calc = $pdo->prepare("SELECT note FROM l_jeux_utilisateurs WHERE id_j=:gameId;");
+    $calc->execute(
+        [
+            'gameId' => $gameId
+        ]
+    );
+    $i = 0;
+    $total = 0;
+    while ($moy = $calc->fetch()) {
+        $i += 1;
+        $total += $moy['note'];
+    }
+    if ($i !== 0) {
+        return round($total / $i, 1);
+    }
+    return 0;
+}
+
+function errorDisplay(): void
+{
+    $error = new ErrorMsg;
+    ?>
+    <section class="container text-center text-danger my-5">
+        <p>Une erreur est survenue : <?php echo $error->getErrorMsg($_GET['erreur']) ?></p>
+    </section>
+<?php
+}
+
+function displayAccount(array $user): void
+{
+?>
+    <div class="row bg-white justify-content-center text-dark py-5 rounded-4 mt-5">
+        <h2 class="text-center mb-5">Mes infos</h2>
+        <div class="d-flex justify-content-around text-center mb-3">
+            <p class="fs-4 fw-bold">Nom <br><?php echo $user['name_u']; ?></p>
+            <p class="fs-4 fw-bold">Prénom <br><?php echo $user['firstname_u']; ?></p>
+        </div>
+        <div class="d-flex justify-content-around text-center">
+            <p class="fs-4 fw-bold">Date de naissance <br><?php echo date_format(date_create($user['naissance_u']), "d/m/Y"); ?></p>
+            <p class="fs-4 fw-bold">Email <br><?php echo $user['email']; ?></p>
+        </div>
+    </div>
+<?php
 }
