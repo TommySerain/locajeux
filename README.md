@@ -112,7 +112,9 @@ le formualire envoie sur la page de inscription qui sert au traitement de l'insc
 Il a fallut créer plusieurs exceptions pour géer les erreurs tel que un email déjà inscrit, une mauvaise date, un email au mauvais format, l'inscription d'un mineur.
 J'ai décidé de créer plusieurs exceptions que j'ai regroupé avec l'exception InscriptionExeption afin de simplifier le code en évitant de multiple catch.
 
-# Affichage des jeux sur l'index
+# Modification
+
+## Affichage des jeux sur l'index
 J'ai simplement fais un while après la requête SQL pour afficher tous mes jeux.  
 Dans un premier temps je n'affichais que les images des jeux et aucunes autres infos.  
 Donc aucun soucis jusque là.  
@@ -132,3 +134,8 @@ J'ai eu besoin de la troisième plus tard car j'avais utilisé l'id-utilisateurs
 mais si un joueur loue deux fois le même jeu on se retrouve avec deux fois la même combinaison de clé et donc un doublon de clé primaire.  
 j'ai donc eu besoin de créer un identifiant de location pour paliker ce problème.
 ![nouveau schéma mdp](img/nouveau_mdp.png "MPD")
+
+## Liens des imgaes et des règles
+Pour deux raisons j'ai décicdé de créer des constantes pour les chemins d'accès des images et des règles :  
+  * Si je veux changer les fichiers d'emplacement, je n'aurai cas changer le chemain à un endroit.
+  * Pour simplifier le valeurs de la base de données, je n'ai plus que les noms des fichiers au lieu d'avoir tout le chemin.
