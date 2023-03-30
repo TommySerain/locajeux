@@ -5,17 +5,13 @@ require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/classes/ErrorMsg.php";
 require_once __DIR__ . "/template/source.php";
 require_once __DIR__ . "/classes/Game.php";
+require_once __DIR__ . "/classes/ConnectedUser.php";
+require_once __DIR__ . "/classes/GameAvailability.php";
 
 if (isset($_SESSION['connected'])) {
-    $stmt_user = $pdo->prepare('SELECT * FROM utilisateurs WHERE id_u=:id ');
-    $stmt_user->execute(
-        [
-            'id' => $_SESSION['id_u']
-        ]
-    );
-    $connectedUser = $stmt_user->fetch();
+    $connectedUser = new ConnectedUser($pdo);
 ?>
-    <h2 class='text-white text-center m-5'>Bonjour <?php echo $connectedUser['firstname_u']; ?></h2>
+    <h2 class='text-white text-center m-5'>Bonjour <?php echo $connectedUser->getUserFirstname(); ?></h2>
 <?php
 }
 
@@ -24,7 +20,6 @@ if (isset($_GET['erreur'])) {
 }
 
 require_once __DIR__ . "/template/search-form.php";
-
 if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
     $games = search($_GET['type'], $_GET['categories'], $_GET['nom'], $pdo);
 } else {
@@ -41,23 +36,13 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
             <div class="col-3 p-0">
                 <div class="rounded-4 bg-white m-4 jeux">
                     <a href="fichejeux.php?id=<?php echo $gameId; ?>">
-                        <img class="imgJeux w-100 m-0 border border-4  border-dark rounded-4 jeux" src="<?php echo SOURCE_IMG . $game['img_j']; ?>" alt="">
+                        <img class="imgJeux w-100 m-0 border border-4 border-dark rounded-4 jeux" src="<?php echo SOURCE_IMG . $game['img_j']; ?>" alt="image du jeu <?php echo $game['name_j']; ?>">
                     </a>
                     <div class="p-2 text-center ">
-                        <?php if ($game['disponible']) { ?>
-                            <p class="my-auto fw-bold pb-4">Disponible</p>
-                        <?php } else {
-                            $date = $pdo->prepare("SELECT date_dispo FROM l_jeux_utilisateurs WHERE id_j=:idJ AND date_dispo IS NOT NULL");
-                            $date->execute(
-                                [
-                                    'idJ' => $gameId
-                                ]
-                            );
-                            $date = $date->fetch();
+                        <?php
+                        $available = new GameAvailability($game['id_j'], $game['disponible'], $pdo);
+                        $available->displayAvailability();
                         ?>
-                            <p class="my-auto fw-bold">Date de disponibilité : </p>
-                            <p class="my-auto fw-bold text-danger"><?php echo dateToFrenchFormat($date['date_dispo']); ?></p>
-                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -67,5 +52,4 @@ if (isset($_GET['type']) || isset($_GET['categories']) || isset($_GET['nom'])) {
     </div>
 </section>
 <?php
-
 require_once __DIR__ . "/layout/footer.php";

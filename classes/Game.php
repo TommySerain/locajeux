@@ -128,11 +128,11 @@ class Game
         return false;
     }
 
-    public function isExtension(): mixed
+    public function isExtension():bool
     {
-        if ($this->idP !== NULL) {
-            return $this->idP;
-        } else {
+        if($this->idP!==0){
+            return true;
+        }else{
             return false;
         }
     }

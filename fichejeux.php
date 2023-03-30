@@ -45,7 +45,7 @@ if ($note === 0.0) { ?>
     <h2 class="fs-4 text-white text-center">Note des utilisateurs : non noté</h2>
 <?php } else {
 ?>
-    <h2 class="fs-4 text-white text-center">Note des utilisateurs : <?php echo $note->DisplayNote($pdo); ?></h2>
+    <h2 class="fs-4 text-white text-center">Note des utilisateurs : <?php echo $note->getNote($pdo); ?></h2>
 <?php } ?>
 
 <img class="rounded-5 w-25 mb-5 d-block mx-auto" src="<?php echo SOURCE_IMG . $jeu->getPicture(); ?>" alt=""><br>
@@ -60,6 +60,7 @@ if ($note === 0.0) { ?>
         <p>Type : <?php echo $game['name_t']; ?> </p>
         <p>Catégorie : <?php echo $game['name_c']; ?> </p>
     </div>
+    
     <?php
     if ($jeu->isExtension()) {
         $stmtParent = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
@@ -68,7 +69,8 @@ if ($note === 0.0) { ?>
                 'id' => $idp
             ]
         );
-        $gameParent = $stmtParent->fetch(); ?>
+        $gameParent = $stmtParent->fetch();?>
+        
 
         <p> Ce jeu est une extension de <a class="text-decoration-none" href="fichejeux.php?id=<?php echo $gameParent['id_j']; ?>"><?php echo $gameParent['name_j']; ?></a></p>
     <?php

@@ -5,20 +5,15 @@ require_once __DIR__ . "/pdo/db.php";
 if (!isset($_SESSION['connected'])) {
     redirect("index.php");
 }
+require_once __DIR__ . "/classes/ConnectedUser.php";
+$user = new ConnectedUser($pdo);
+$idU = $user->getUserId();
 
-$idU = $_SESSION['id_u'];
-$user = $pdo->prepare("SELECT * FROM utilisateurs WHERE id_u=:identifiant");
-$user->execute(
-    [
-        'identifiant' => $idU
-    ]
-);
-
-$user = $user->fetch();
+// TODO: créer une class jeux utilisateurs pour englober la query et peut-être modifier le template user-game-ocation
 $games = $pdo->prepare("SELECT * FROM l_jeux_utilisateurs NATURAL JOIN jeux WHERE id_u=:identifiant");
 $games->execute(
     [
-        'identifiant' => $user['id_u']
+        'identifiant' => $idU
     ]
 );
 ?>
@@ -27,7 +22,7 @@ $games->execute(
     <div class="row g-5">
         <div class="col-12">
             <?php
-            displayAccount($user);
+            $user->displayAccount();
             ?>
         </div>
         <div class="col-12">

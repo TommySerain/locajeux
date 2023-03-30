@@ -6,7 +6,8 @@ class AverageNote
         private int $gameId,
     ) {
     }
-    public function DisplayNote($pdo)
+
+    public function getNote($pdo)
     {
         $calc = $pdo->prepare("SELECT note FROM l_jeux_utilisateurs WHERE id_j=:gameId;");
         $calc->execute(
@@ -25,4 +26,5 @@ class AverageNote
         }
         return 0;
     }
+
 }

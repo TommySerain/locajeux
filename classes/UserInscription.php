@@ -4,7 +4,7 @@ require_once __DIR__ . "/exceptions/InvalidEmailException.php";
 require_once __DIR__ . "/exceptions/InvalidDateException.php";
 require_once __DIR__ . "/exceptions/InvalidAgeException.php";
 
-class USER
+class UserInscription
 {
     private ?int $id;
 
@@ -51,60 +51,30 @@ class USER
     {
         return $this->name;
     }
-    public function setName($name): USER
-    {
-        $this->name = $name;
-        return $this;
-    }
 
     public function getFirstname(): string
     {
         return $this->firstname;
-    }
-    public function setFirstname($firstname): USER
-    {
-        $this->firstname = $firstname;
-        return $this;
     }
 
     public function getBirthdate(): string
     {
         return $this->birthdate;
     }
-    public function setBirthdate($birthdate): USER
-    {
-        $this->birthdate = $birthdate;
-        return $this;
-    }
 
     public function getEmail(): string
     {
         return $this->email;
-    }
-    public function setEmail($email): USER
-    {
-        $this->email = $email;
-        return $this;
     }
 
     public function getAddress(): string
     {
         return $this->address;
     }
-    public function setAddress($address): USER
-    {
-        $this->address = $address;
-        return $this;
-    }
 
     public function getMdp(): string
     {
         return $this->mdp;
-    }
-    public function setMdp($mdp): USER
-    {
-        $this->mdp = $mdp;
-        return $this;
     }
 
     private function isEmailValid(): bool
