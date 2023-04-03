@@ -15,10 +15,10 @@ class UserInscription
         private string $email,
         private string $address,
         private string $mdp,
-        $pdo
+        private PDO $pdo
     ) {
 
-        $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email=:email");
+        $stmt = $this->pdo->prepare("SELECT * FROM utilisateurs WHERE email=:email");
         $stmt->execute(['email' => $this->email]);
         $test = $stmt->fetch();
         if ($test !== false) {
@@ -96,5 +96,22 @@ class UserInscription
         intval($diff->format("y"));
         $diff = intval($diff->format("%y"));
         return $diff >= 18 ? true : false;
+    }
+
+    public function userDbInscription()
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO utilisateurs (name_u, firstname_u, naissance_u, email, address_u, mdp_u)
+    VALUES (:nom,:firstname,:naissance,:email,:adresse,:mdp)");
+
+$stmt->execute(
+    [
+        'nom' => $this->name,
+        'firstname' => $this->firstname,
+        'naissance' => date('Y-m-d', strtotime($this->birthdate)),
+        'email' => $this->email,
+        'adresse' => $this->address,
+        'mdp' => password_hash($this->mdp, PASSWORD_DEFAULT),
+    ]
+);
     }
 }

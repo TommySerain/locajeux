@@ -22,31 +22,12 @@ if (strlen(($_POST['com'])) > 200) {
     redirect("note-com.php?id=$gameId&erreur=12");
 }
 
-$verif = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
-$verif->execute(
-    [
-        "id" => $gameId
-    ]
-);
-$game = $verif->fetch();
-if ($game === false) {
+if (!isGameInGet($gameId, $pdo)) {
     redirect("index.php");
 };
 $note = intval($_POST['note']);
 $com = $_POST['com'];
-$noteComs = $pdo->prepare("UPDATE l_jeux_utilisateurs
-                            SET note=:note, com=:com
-                            WHERE id_u=:userId
-                            AND id_j=:gameId
-                            AND note IS NULL
-                            AND com IS NULL
-                            AND date_dispo IS NULL;");
-$noteComs->execute(
-    [
-        'note' => $note,
-        'com' => $com,
-        'userId' => $userId,
-        'gameId' => $gameId
-    ]
-);
+require_once __DIR__ . "/classes/NoteComPost.php";
+$noteCom = new NoteComPost($note, $com, $userId, $gameId, $pdo);
+
 redirect("mon_compte.php");

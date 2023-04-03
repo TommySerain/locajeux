@@ -9,13 +9,7 @@ require_once __DIR__ . "/classes/ConnectedUser.php";
 $user = new ConnectedUser($pdo);
 $idU = $user->getUserId();
 
-// TODO: créer une class jeux utilisateurs pour englober la query et peut-être modifier le template user-game-ocation
-$games = $pdo->prepare("SELECT * FROM l_jeux_utilisateurs NATURAL JOIN jeux WHERE id_u=:identifiant");
-$games->execute(
-    [
-        'identifiant' => $idU
-    ]
-);
+$games=rentedByUser($idU,$pdo);
 ?>
 <section class="container text-white mt-5">
     <h1 class="text-center">Mon compte LocaJeux</h1>

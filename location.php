@@ -8,28 +8,20 @@ if (empty($_GET)) {
 require_once __DIR__ . "/pdo/db.php";
 
 $id = intval($_GET['id']);
-$stmt = $pdo->prepare("SELECT * FROM jeux
-NATURAL JOIN categories
-WHERE id_j=:id");
-$stmt->execute(
-    [
-        'id' => $id
-    ]
-);
 
-$game = $stmt->fetch();
 
-if (!$game['disponible']) {
+if (!isGameInGet($id, $pdo)) {
     redirect('fichejeux.php?id=' . $game['id_j']);
 }
-
+require_once __DIR__ . "/classes/Game.php";
+$game = new Game($id, $pdo);
 require_once __DIR__ . "/layout/header.php";
 
 if (!isset($_SESSION['connected'])) {
     redirect("index.php");
 }
-
-if ($game['id_j_p'] !== NULL) {
+// TODO: factoriser ATTENTION IL S'AGIT DE LA RELATION UNAIRE
+if ($game->getIdP() !== NULL) {
     $stmt = $pdo->prepare("SELECT jeux.*, categories.*, parent.name_j AS nom_p FROM jeux
     NATURAL JOIN categories
     INNER JOIN jeux AS parent ON jeux.id_j_p=parent.id_j

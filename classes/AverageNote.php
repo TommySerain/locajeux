@@ -2,6 +2,7 @@
 
 class AverageNote
 {
+    private float $note;
     public function __construct(
         private int $gameId,
     ) {
@@ -22,9 +23,10 @@ class AverageNote
             $total += $moy['note'];
         }
         if ($i !== 0) {
-            return round($total / $i, 1);
+            $this->note = round($total / $i, 1);
+            return $this->note;
         }
-        return 0;
+        $this->note = 0.0;
+        return $this->note;
     }
-
 }

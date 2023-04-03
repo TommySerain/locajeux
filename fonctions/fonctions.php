@@ -114,3 +114,24 @@ function errorDisplay(): void
 <?php
 }
 
+function isGameInGet(int $idGame, PDO $pdo): bool
+{
+    $stmt = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
+    $stmt->execute(
+        [
+            'id' => $idGame
+        ]
+    );
+    return $game = $stmt->fetch() !== false;
+}
+
+function rentedByUser(int $idU, PDO $pdo): PDOStatement
+{
+    $games = $pdo->prepare("SELECT * FROM l_jeux_utilisateurs NATURAL JOIN jeux WHERE id_u=:identifiant");
+    $games->execute(
+        [
+            'identifiant' => $idU
+        ]
+    );
+    return $games;
+}

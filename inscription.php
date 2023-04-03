@@ -43,19 +43,7 @@ $email = $user->getEmail();
 $adresse = $user->getAddress();
 $mdp = $user->getMdp();
 
-$stmt = $pdo->prepare("INSERT INTO utilisateurs (name_u, firstname_u, naissance_u, email, address_u, mdp_u)
-    VALUES (:nom,:firstname,:naissance,:email,:adresse,:mdp)");
-
-$stmt->execute(
-    [
-        'nom' => $nom,
-        'firstname' => $prenom,
-        'naissance' => date('Y-m-d', strtotime($birthdate)),
-        'email' => $email,
-        'adresse' => $adresse,
-        'mdp' => password_hash($mdp, PASSWORD_DEFAULT),
-    ]
-);
+$user->userDbInscription();
 
 ?>
 <h1 class="text-center text-white m-5"> Inscription réussie</h1>

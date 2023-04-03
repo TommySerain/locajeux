@@ -2,18 +2,11 @@
 // TODO: factoriser
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/fonctions/fonctions.php";
-$id = intval($_GET['id']);
+$idGame = intval($_GET['id']);
 
-$stmt = $pdo->prepare("SELECT * FROM jeux NATURAL JOIN types NATURAL JOIN categories WHERE id_j=:id");
-$stmt->execute(
-    [
-        'id' => $id
-    ]
-);
 
-$game = $stmt->fetch();
 
-if ($game === false) {
+if (!isGameInGet($idGame, $pdo)) {
     redirect("index.php");
 };
 
@@ -21,19 +14,17 @@ require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/classes/Game.php";
 require_once __DIR__ . "/template/source.php";
 
-
-$jeu = new GAME(
-    intval($game['id_j']),
-    $game['name_j'],
-    $game['img_j'],
-    $game['rules_j'],
-    intval($game['loc_j']),
-    intval($game['caution_j']),
-    intval($game['id_j_p']),
-    intval($game['id_t']),
-    intval($game['id_c']),
-    $game['disponible']
+$stmt = $pdo->prepare("SELECT * FROM jeux NATURAL JOIN types NATURAL JOIN categories WHERE id_j=:id");
+$stmt->execute(
+    [
+        'id' => $idGame
+    ]
 );
+$game = $stmt->fetch();
+
+$jeu = new GAME($idGame, $pdo);
+$jeutab = $jeu->getGame();
+
 require_once __DIR__ . "/classes/AverageNote.php";
 $idp = $jeu->getIdP();
 $note = new AverageNote($jeu->getId());
@@ -41,7 +32,7 @@ $note = new AverageNote($jeu->getId());
 
 <h1 class="m-5 text-white text-center">- <?php echo $jeu->getName(); ?> -</h1>
 <?php
-if ($note === 0.0) { ?>
+if ($note->getNote($pdo) === 0.0) { ?>
     <h2 class="fs-4 text-white text-center">Note des utilisateurs : non noté</h2>
 <?php } else {
 ?>
@@ -60,7 +51,7 @@ if ($note === 0.0) { ?>
         <p>Type : <?php echo $game['name_t']; ?> </p>
         <p>Catégorie : <?php echo $game['name_c']; ?> </p>
     </div>
-    
+
     <?php
     if ($jeu->isExtension()) {
         $stmtParent = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
@@ -69,8 +60,8 @@ if ($note === 0.0) { ?>
                 'id' => $idp
             ]
         );
-        $gameParent = $stmtParent->fetch();?>
-        
+        $gameParent = $stmtParent->fetch(); ?>
+
 
         <p> Ce jeu est une extension de <a class="text-decoration-none" href="fichejeux.php?id=<?php echo $gameParent['id_j']; ?>"><?php echo $gameParent['name_j']; ?></a></p>
     <?php
@@ -79,7 +70,7 @@ if ($note === 0.0) { ?>
     $stmtExt = $pdo->prepare("SELECT * FROM jeux WHERE id_j_p=:id ");
     $stmtExt->execute(
         [
-            'id' => $id
+            'id' => $idGame
         ]
     );
     $game = $stmtExt->fetch();
@@ -121,4 +112,3 @@ while ($com = $coms->fetch()) {
 }
 
 require_once __DIR__ . "/layout/footer.php";
-// TODO: vérifier les notes et les liens parents/extensions

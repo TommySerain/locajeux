@@ -2,23 +2,47 @@
 
 class Game
 {
+    private array $game;
+    private string $name;
+    private string $picture;
+    private string $rules;
+    private int $locP;
+    private int $cautP;
+    private ?int $idP;
+    private int $type;
+    private int $category;
+    private bool $available = true;
+
     public function __construct(
-        private int $id,
-        private string $name,
-        private string $picture,
-        private string $rules,
-        private int $locP,
-        private int $cautP,
-        private int $idP,
-        private int $type,
-        private int $category,
-        private bool $available = true
+        private int $gameId,
+        private PDO $pdo
     ) {
+        $stmt = $this->pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
+        $stmt->execute(
+            [
+                "id" => $this->gameId
+            ]
+        );
+        $this->game = $stmt->fetch();
+        $this->name = $this->game['name_j'];
+        $this->picture = $this->game['img_j'];
+        $this->rules = $this->game['rules_j'];
+        $this->locP = $this->game['loc_j'];
+        $this->cautP = $this->game['caution_j'];
+        $this->idP = $this->game['id_j_p'];
+        $this->type = $this->game['id_t'];
+        $this->category = $this->game['id_c'];
+        $this->available = $this->game['disponible'];
+    }
+
+    public function getGame(): array
+    {
+        return $this->game;
     }
 
     public function getId(): int
     {
-        return $this->id;
+        return $this->gameId;
     }
 
     public function getLocP(): int
@@ -45,6 +69,9 @@ class Game
 
     public function getIdP(): int
     {
+        if ($this->idP === NULL) {
+            return 0;
+        }
         return $this->idP;
     }
     public function setIdP($idP): int
@@ -128,11 +155,11 @@ class Game
         return false;
     }
 
-    public function isExtension():bool
+    public function isExtension(): bool
     {
-        if($this->idP!==0){
+        if ($this->getIdP() !== 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
