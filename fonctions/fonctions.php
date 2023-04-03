@@ -125,7 +125,7 @@ function isGameInGet(int $idGame, PDO $pdo): bool
     return $game = $stmt->fetch() !== false;
 }
 
-function rentedByUser(int $idU, PDO $pdo): PDOStatement
+function rentedByUser(int $idU, PDO $pdo): object
 {
     $games = $pdo->prepare("SELECT * FROM l_jeux_utilisateurs NATURAL JOIN jeux WHERE id_u=:identifiant");
     $games->execute(
@@ -134,4 +134,18 @@ function rentedByUser(int $idU, PDO $pdo): PDOStatement
         ]
     );
     return $games;
+}
+
+function prepareCom(Game $jeu, PDO $pdo): object
+{
+    $coms = $pdo->prepare("SELECT com, firstname_u FROM l_jeux_utilisateurs
+                        NATURAL JOIN utilisateurs
+                        WHERE id_j=:gameId
+                        AND com IS NOT NULL");
+    $coms->execute(
+        [
+            'gameId' => $jeu->getId()
+        ]
+    );
+    return $coms;
 }

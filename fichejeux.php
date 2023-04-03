@@ -74,16 +74,7 @@ if (isset($_SESSION['connected'])) { ?>
 <?php
     }
 }
-
-$coms = $pdo->prepare("SELECT com, firstname_u FROM l_jeux_utilisateurs
-                        NATURAL JOIN utilisateurs
-                        WHERE id_j=:gameId
-                        AND com IS NOT NULL");
-$coms->execute(
-    [
-        'gameId' => $jeu->getId()
-    ]
-);
+$coms = prepareCom($jeu, $pdo);
 
 require_once __DIR__ . "/classes/Com.php";
 while ($com = $coms->fetch()) {
