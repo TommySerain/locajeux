@@ -9,7 +9,7 @@ require_once __DIR__ . "/classes/ConnectedUser.php";
 $user = new ConnectedUser($pdo);
 $idU = $user->getUserId();
 
-$games=rentedByUser($idU,$pdo);
+$games = rentedByUser($idU, $pdo);
 ?>
 <section class="container text-white mt-5">
     <h1 class="text-center">Mon compte LocaJeux</h1>

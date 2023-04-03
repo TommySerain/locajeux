@@ -7,7 +7,7 @@ require_once __DIR__ . "/pdo/db.php";
 
 $gameId = intval($_GET['id']);
 
-if (!isGameInGet ($gameId, $pdo)) {
+if (!isGameInGet($gameId, $pdo)) {
     redirect("index.php");
 };
 require_once __DIR__ . "/layout/header.php";
@@ -18,10 +18,10 @@ if (!isset($_SESSION['connected'])) {
 }
 if (isset($_GET['erreur'])) {
     errorDisplay();
-} 
+}
 
-$game=new Game($gameId, $pdo);
-$gametab=$game->getGame();
+$game = new Game($gameId, $pdo);
+$gametab = $game->getGame();
 
 ?>
 <section class="container">

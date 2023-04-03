@@ -15,7 +15,7 @@ $uMail = $_POST['email'];
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/classes/UserConnect.php";
 
-$connectedU=new UserConnect($pdo, $uMail, $uMdp);
+$connectedU = new UserConnect($pdo, $uMail, $uMdp);
 
 if (!str_contains($_SERVER["HTTP_REFERER"], "index.php")) {
     redirect("$_SERVER[HTTP_REFERER]");

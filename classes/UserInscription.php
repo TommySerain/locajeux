@@ -103,15 +103,15 @@ class UserInscription
         $stmt = $this->pdo->prepare("INSERT INTO utilisateurs (name_u, firstname_u, naissance_u, email, address_u, mdp_u)
     VALUES (:nom,:firstname,:naissance,:email,:adresse,:mdp)");
 
-$stmt->execute(
-    [
-        'nom' => $this->name,
-        'firstname' => $this->firstname,
-        'naissance' => date('Y-m-d', strtotime($this->birthdate)),
-        'email' => $this->email,
-        'adresse' => $this->address,
-        'mdp' => password_hash($this->mdp, PASSWORD_DEFAULT),
-    ]
-);
+        $stmt->execute(
+            [
+                'nom' => $this->name,
+                'firstname' => $this->firstname,
+                'naissance' => date('Y-m-d', strtotime($this->birthdate)),
+                'email' => $this->email,
+                'adresse' => $this->address,
+                'mdp' => password_hash($this->mdp, PASSWORD_DEFAULT),
+            ]
+        );
     }
 }

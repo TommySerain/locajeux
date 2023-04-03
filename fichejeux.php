@@ -4,23 +4,15 @@ require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/fonctions/fonctions.php";
 $idGame = intval($_GET['id']);
 
-
-
 if (!isGameInGet($idGame, $pdo)) {
     redirect("index.php");
 };
 
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/classes/Game.php";
+require_once __DIR__ . "/classes/GameCategoryAndType.php";
 require_once __DIR__ . "/template/source.php";
-
-$stmt = $pdo->prepare("SELECT * FROM jeux NATURAL JOIN types NATURAL JOIN categories WHERE id_j=:id");
-$stmt->execute(
-    [
-        'id' => $idGame
-    ]
-);
-$game = $stmt->fetch();
+$game = new GameCategoryAndType($idGame, $pdo);
 
 $jeu = new GAME($idGame, $pdo);
 $jeutab = $jeu->getGame();
@@ -48,42 +40,30 @@ if ($note->getNote($pdo) === 0.0) { ?>
         <p>Caution : <?php echo $jeu->getCautP(); ?> €</p>
     </div>
     <div class="d-flex justify-content-around">
-        <p>Type : <?php echo $game['name_t']; ?> </p>
-        <p>Catégorie : <?php echo $game['name_c']; ?> </p>
+        <p>Type : <?php echo $game->getGameTypeName(); ?> </p>
+        <p>Catégorie : <?php echo $game->getGameCategoryName(); ?> </p>
     </div>
 
     <?php
+    require_once __DIR__ . "/classes/Extension.php";
     if ($jeu->isExtension()) {
-        $stmtParent = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
-        $stmtParent->execute(
-            [
-                'id' => $idp
-            ]
-        );
-        $gameParent = $stmtParent->fetch(); ?>
-
-
+        $gameParent = new Extension($idp, $pdo);
+        $gameParent = $gameParent->getGameParent();
+    ?>
         <p> Ce jeu est une extension de <a class="text-decoration-none" href="fichejeux.php?id=<?php echo $gameParent['id_j']; ?>"><?php echo $gameParent['name_j']; ?></a></p>
     <?php
     }
-
-    $stmtExt = $pdo->prepare("SELECT * FROM jeux WHERE id_j_p=:id ");
-    $stmtExt->execute(
-        [
-            'id' => $idGame
-        ]
-    );
-    $game = $stmtExt->fetch();
-    if ($game) { ?>
-        <p>Pour ce jeu nous avons l'extension : <a class="text-decoration-none " href="fichejeux.php?id=<?php echo $game['id_j']; ?>"><?php echo $game['name_j']; ?></a></p>
+    require_once __DIR__ . "/classes/Parents.php";
+    $gameExt = new Parents($idGame, $pdo);
+    $gameExt = $gameExt->getGameExt();
+    if ($gameExt) { ?>
+        <p>Pour ce jeu nous avons l'extension : <a class="text-decoration-none " href="fichejeux.php?id=<?php echo $gameExt['id_j']; ?>"><?php echo $gameExt['name_j']; ?></a></p>
     <?php
     }
     ?>
 </section>
 
-
 <?php
-
 if (isset($_SESSION['connected'])) { ?>
     <?php
     if ($jeu->isAvailable()) {

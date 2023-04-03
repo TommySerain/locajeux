@@ -31,7 +31,6 @@ try {
         $pdo
     );
 } catch (InscriptionException $e) {
-
 }
 
 redirectInscription();

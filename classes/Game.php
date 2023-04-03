@@ -2,20 +2,22 @@
 
 class Game
 {
-    private array $game;
-    private string $name;
-    private string $picture;
-    private string $rules;
-    private int $locP;
-    private int $cautP;
-    private ?int $idP;
-    private int $type;
-    private int $category;
-    private bool $available = true;
+    protected array $game;
+    protected string $name;
+    protected string $picture;
+    protected string $rules;
+    protected int $locP;
+    protected int $cautP;
+    protected ?int $idP;
+    protected int $type;
+    protected int $category;
+    protected ?string $nomPere;
+    protected ?array $jeuPere;
+    protected bool $available = true;
 
     public function __construct(
-        private int $gameId,
-        private PDO $pdo
+        protected int $gameId,
+        protected PDO $pdo
     ) {
         $stmt = $this->pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
         $stmt->execute(
@@ -136,6 +138,28 @@ class Game
         }
     }
 
+    public function getNomP(): string
+    {
+        return $this->nomPere;
+    }
+    public function setNomP($nomPere): string
+    {
+        if ($nomPere !== "") {
+            return $this->nomPere = $nomPere;
+        }
+    }
+
+    public function getJeuPere(): array
+    {
+        return $this->jeuPere;
+    }
+    public function setJeuPere($jeuPere): array
+    {
+        if ($jeuPere !== "") {
+            return $this->jeuPere = $jeuPere;
+        }
+    }
+
     public function getAvailable($availabe): bool
     {
         return $this->available;
@@ -161,6 +185,24 @@ class Game
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function fetchJeuPere($pdo)
+    {
+        if ($this->getIdP() !== NULL) {
+            $stmt = $pdo->prepare("SELECT jeux.*, categories.*, parent.name_j AS nom_p FROM jeux
+                NATURAL JOIN categories
+                INNER JOIN jeux AS parent ON jeux.id_j_p=parent.id_j
+                WHERE jeux.id_j=:id");
+            $stmt->execute(
+                [
+                    'id' => $this->getId()
+                ]
+            );
+            $jeu_pere = $stmt->fetch();
+            $this->setNomP($jeu_pere['nom_p']);
+            $this->setJeuPere($jeu_pere);
         }
     }
 }

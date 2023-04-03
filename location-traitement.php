@@ -15,12 +15,12 @@ if (!isGameInGet($gameId, $pdo)) {
     redirect("index.php");
 };
 require_once __DIR__ . "/classes/Game.php";
-$game=new Game($gameId, $pdo);
+$game = new Game($gameId, $pdo);
 if (!$game->isAvailable()) {
     redirect("fichejeux.php?id=$gameId");
 };
 
 require_once __DIR__ . "/classes/LocationJeu.php";
-$majJeu=new LocationJeu($gameId, $userId, $dateLoc, $dateDispo, $pdo);
+$majJeu = new LocationJeu($gameId, $userId, $dateLoc, $dateDispo, $pdo);
 
 redirect("mon_compte.php");

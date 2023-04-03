@@ -51,7 +51,7 @@ class ConnectedUser
 
     public function displayAccount(): void
     {
-    ?>
+?>
         <div class="row bg-white justify-content-center text-dark py-5 rounded-4 mt-5">
             <h2 class="text-center mb-5">Mes infos</h2>
             <div class="d-flex justify-content-around text-center mb-">
@@ -63,6 +63,6 @@ class ConnectedUser
                 <p class="fs-4 fw-bold">Email <br><?php echo $this->user['email']; ?></p>
             </div>
         </div>
-    <?php
+<?php
     }
 }
