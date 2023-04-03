@@ -1,5 +1,4 @@
 <?php
-// TODO: factoriser
 require_once __DIR__ . "/pdo/db.php";
 require_once __DIR__ . "/fonctions/fonctions.php";
 $idGame = intval($_GET['id']);
