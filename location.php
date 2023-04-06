@@ -21,17 +21,14 @@ if (!isset($_SESSION['connected'])) {
     redirect("index.php");
 }
 
-if ($game->isExtension()) {
-    $game->fetchJeuPere($pdo);
-}
-var_dump($game->getCategory());
 ?>
 <div class="text-center bg-white mx-auto w-75 my-5 p-5 rounded-3">
     <p class="fs-2">Voulez-vous louer <?php echo $game->getname() ?> ? </p>
     <p class="fs-2">Si vous décidez de le louer il faudra le rendre au plus tard le</p>
     <p class="fs-2 fw-bold text-danger"><?php echo $date = dateToFrenchFormat(datePlusOneWeek()); ?></p>
     <?php
-    if ($game->getCategory() === "4") {
+    if ($game->isExtension()) {
+        $game->fetchJeuPere($pdo);
     ?>
         <p class="fs-2 mt-5">Attention il s'agît d'une extension du jeu <a class="text-decoration-none fw-bold" href="fichejeux.php?id=<?php echo $game->getIdP(); ?>"><?php echo $game->getNomP(); ?>.</a></p>
         <p class="fs-2">Vous en aurez besoin pour utiliser cette extension</p>
