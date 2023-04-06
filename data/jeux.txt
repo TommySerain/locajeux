@@ -1,8 +1,0 @@
-1,SubTerra,sub_terra.png,Sub-terra.pdf,10,40, ,1,1
-2,7 Wonders,7_wonders.jpg,7-wonders.pdf,10,30, ,2,1
-3,Esquisse,Esquisse.jpg,esquisse.pdf,7,50, ,3,3
-4,Sound Box,sound_box.jpg,sound-box.pdf,5,25, ,3,3
-5,Aeons End,aeon_s_end.jpg,Aeons-end.pdf,12,60, ,1,1
-6,Andor,andor.jpg,andor.pdf,10,50, ,1,1,
-7,Call to adventure,call_to_adventure.jpeg,call-to-adventure.pdf,5,40, ,2,2,
-8,Andor héros Sombres,andor_heros_sombres.jpg,andor-heros-sombres.pdf,8,30,6,1,4

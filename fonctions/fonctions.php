@@ -1,6 +1,5 @@
 <?php
-// TODO:vérifier les signatures de fonctions
-// TODO: vérifier le nommage des fonctions
+
 function redirect($page): void
 {
     header("location: $page");
