@@ -135,7 +135,13 @@ mais si un joueur loue deux fois le même jeu on se retrouve avec deux fois la m
 j'ai donc eu besoin de créer un identifiant de location pour paliker ce problème.
 ![nouveau schéma mdp](img/nouveau_mdp.png "MPD")
 
-## Liens des imgaes et des règles
+## Liens des images et des règles
 Pour deux raisons j'ai décicdé de créer des constantes pour les chemins d'accès des images et des règles :  
   * Si je veux changer les fichiers d'emplacement, je n'aurai cas changer le chemain à un endroit.
-  * Pour simplifier le valeurs de la base de données, je n'ai plus que les noms des fichiers au lieu d'avoir tout le chemin.
+  * Pour simplifier les valeurs de la base de données, je n'ai plus que les noms des fichiers au lieu d'avoir tout le chemin.
+
+## Modifications de la class Game
+Avant, j'étais obligé de donné absolument tous les attributs au moment de l'instanciation d'un nouvel objet Game, j'ai donc fait une refonte de ma class pour n'avoir plus q'uà lui donner un ID et un objet pdo, et le constructeur se charge d'aller chercher toutes les autres infos dans la bdd.
+Je lui ai également apporté plusieurs méthodes en lien avec ctte class (par exemple isExtension).  
+Par contre j'avais oublié que j'avais utilisé cette class pour importer le fichier text dans ma base de donnée et donc j'ai cassé cette fonctionnalité.
+Après réflexion j'ai décidé de supprimer cette fonctionnalité qui n'était pas vraiment utile dans ce projet.
