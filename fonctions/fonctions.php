@@ -1,6 +1,5 @@
 <?php
-// TODO:vérifier les signatures de fonctions
-// TODO: vérifier le nommage des fonctions
+
 function redirect($page): void
 {
     header("location: $page");
@@ -114,19 +113,38 @@ function errorDisplay(): void
 <?php
 }
 
-function displayAccount(array $user): void
+function isGameInGet(int $idGame, PDO $pdo): bool
 {
-?>
-    <div class="row bg-white justify-content-center text-dark py-5 rounded-4 mt-5">
-        <h2 class="text-center mb-5">Mes infos</h2>
-        <div class="d-flex justify-content-around text-center mb-3">
-            <p class="fs-4 fw-bold">Nom <br><?php echo $user['name_u']; ?></p>
-            <p class="fs-4 fw-bold">Prénom <br><?php echo $user['firstname_u']; ?></p>
-        </div>
-        <div class="d-flex justify-content-around text-center">
-            <p class="fs-4 fw-bold">Date de naissance <br><?php echo date_format(date_create($user['naissance_u']), "d/m/Y"); ?></p>
-            <p class="fs-4 fw-bold">Email <br><?php echo $user['email']; ?></p>
-        </div>
-    </div>
-<?php
+    $stmt = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
+    $stmt->execute(
+        [
+            'id' => $idGame
+        ]
+    );
+    return $game = $stmt->fetch() !== false;
+}
+
+function rentedByUser(int $idU, PDO $pdo): object
+{
+    $games = $pdo->prepare("SELECT * FROM l_jeux_utilisateurs NATURAL JOIN jeux WHERE id_u=:identifiant");
+    $games->execute(
+        [
+            'identifiant' => $idU
+        ]
+    );
+    return $games;
+}
+
+function prepareCom(Game $jeu, PDO $pdo): object
+{
+    $coms = $pdo->prepare("SELECT com, firstname_u FROM l_jeux_utilisateurs
+                        NATURAL JOIN utilisateurs
+                        WHERE id_j=:gameId
+                        AND com IS NOT NULL");
+    $coms->execute(
+        [
+            'gameId' => $jeu->getId()
+        ]
+    );
+    return $coms;
 }

@@ -4,7 +4,7 @@ require_once __DIR__ . "/exceptions/InvalidEmailException.php";
 require_once __DIR__ . "/exceptions/InvalidDateException.php";
 require_once __DIR__ . "/exceptions/InvalidAgeException.php";
 
-class USER
+class UserInscription
 {
     private ?int $id;
 
@@ -15,10 +15,10 @@ class USER
         private string $email,
         private string $address,
         private string $mdp,
-        $pdo
+        private PDO $pdo
     ) {
 
-        $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email=:email");
+        $stmt = $this->pdo->prepare("SELECT * FROM utilisateurs WHERE email=:email");
         $stmt->execute(['email' => $this->email]);
         $test = $stmt->fetch();
         if ($test !== false) {
@@ -51,60 +51,30 @@ class USER
     {
         return $this->name;
     }
-    public function setName($name): USER
-    {
-        $this->name = $name;
-        return $this;
-    }
 
     public function getFirstname(): string
     {
         return $this->firstname;
-    }
-    public function setFirstname($firstname): USER
-    {
-        $this->firstname = $firstname;
-        return $this;
     }
 
     public function getBirthdate(): string
     {
         return $this->birthdate;
     }
-    public function setBirthdate($birthdate): USER
-    {
-        $this->birthdate = $birthdate;
-        return $this;
-    }
 
     public function getEmail(): string
     {
         return $this->email;
-    }
-    public function setEmail($email): USER
-    {
-        $this->email = $email;
-        return $this;
     }
 
     public function getAddress(): string
     {
         return $this->address;
     }
-    public function setAddress($address): USER
-    {
-        $this->address = $address;
-        return $this;
-    }
 
     public function getMdp(): string
     {
         return $this->mdp;
-    }
-    public function setMdp($mdp): USER
-    {
-        $this->mdp = $mdp;
-        return $this;
     }
 
     private function isEmailValid(): bool
@@ -126,5 +96,22 @@ class USER
         intval($diff->format("y"));
         $diff = intval($diff->format("%y"));
         return $diff >= 18 ? true : false;
+    }
+
+    public function userDbInscription()
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO utilisateurs (name_u, firstname_u, naissance_u, email, address_u, mdp_u)
+    VALUES (:nom,:firstname,:naissance,:email,:adresse,:mdp)");
+
+        $stmt->execute(
+            [
+                'nom' => $this->name,
+                'firstname' => $this->firstname,
+                'naissance' => date('Y-m-d', strtotime($this->birthdate)),
+                'email' => $this->email,
+                'adresse' => $this->address,
+                'mdp' => password_hash($this->mdp, PASSWORD_DEFAULT),
+            ]
+        );
     }
 }

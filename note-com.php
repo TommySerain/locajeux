@@ -4,28 +4,28 @@ if (!isset($_GET['id'])) {
     redirect("index.php");
 }
 require_once __DIR__ . "/pdo/db.php";
+
 $gameId = intval($_GET['id']);
-$stmt = $pdo->prepare("SELECT * FROM jeux WHERE id_j=:id");
-$stmt->execute(
-    [
-        "id" => $gameId
-    ]
-);
-$game = $stmt->fetch();
-if ($game === false) {
+
+if (!isGameInGet($gameId, $pdo)) {
     redirect("index.php");
 };
 require_once __DIR__ . "/layout/header.php";
 require_once __DIR__ . "/classes/ErrorMsg.php";
+require_once __DIR__ . "/classes/Game.php";
 if (!isset($_SESSION['connected'])) {
     redirect("index.php");
 }
 if (isset($_GET['erreur'])) {
     errorDisplay();
-} ?>
+}
 
+$game = new Game($gameId, $pdo);
+$gametab = $game->getGame();
+
+?>
 <section class="container">
-    <h1 class="text-white text-center mt-3 fs-3">Tu as loué <?php echo $game['name_j']; ?><br> tu aimerais le noter et le commenter ? </h1>
+    <h1 class="text-white text-center mt-3 fs-3">Tu as loué <?php echo $game->getName(); ?><br> tu aimerais le noter et le commenter ? </h1>
     <div class="row g-5">
         <div class="col-8 mx-auto bg-white p-5 pb-3 rounded-4">
             <form class="text-center" action="note-com-traitement.php?id=<?php echo $gameId; ?>" method="POST">
