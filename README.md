@@ -85,7 +85,7 @@ Je l'ai ensuite importer dans la base de donnée, dans un premier temps grâce �
 finalement par une requête préparée pour m'exercer sur ces requêtes qui seront plus sécurisés de manière générale.
 
 ## Création du moteur de recherche
-J'ai d'abbord créer le moteur de recherche avec 8 else/elseif pour gérer tous les cas possible.
+J'ai d'abord créer le moteur de recherche avec 8 else/elseif pour gérer tous les cas possible.
 J'ai finalement mofifié ce moteur de recherche en créant la requête SQL en récupérant les données de la super global GET pour diminuer grandement le nombre de if et simplifier le code
 
 ## Création de la page jeu
@@ -134,6 +134,12 @@ J'ai eu besoin de la troisième plus tard car j'avais utilisé l'id-utilisateurs
 mais si un joueur loue deux fois le même jeu on se retrouve avec deux fois la même combinaison de clé et donc un doublon de clé primaire.  
 j'ai donc eu besoin de créer un identifiant de location pour paliker ce problème.
 ![nouveau schéma mdp](img/nouveau_mdp.png "MPD")
+
+## beaucoup de refactorisation
+J'ai du refactoriser beaucoup de choses, notemment la PDO et tous les fichiers qui faisaient trop de choses différentes.
+J'ai créé des classes pour la plupart des refactos mais pour m'exercé j'ai aussi créé quelques fonctions.
+Sur la page mon compte, pour essayer différentes méthode, j'ai aussi simplement pris un bout de code que j'ai mis dans un autre fichier, dans template et que j'ai require once à l'endroit voulue. En le faisant je me suis bien rendu compte que ce n'est pas une bonne méthode mais étant en apprentissage, j'ai décidé de laissé ça comme ça pour que quand je reviendrais dessus je puisse revoir les différentes méthodes y compris les moins bonnes.
+![mauvaise_méthode-refacto](img/require-template-mon-compte.png "mauvaise-méthode")
 
 ## Liens des images et des règles
 Pour deux raisons j'ai décicdé de créer des constantes pour les chemins d'accès des images et des règles :  
