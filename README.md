@@ -1,4 +1,7 @@
 
+# Configuration
+Dans phpMyAdmin, créer une nouvelle base de donnée et importer la bdd se trouvant dans le dossier data.  
+Dans le dossier config, renommer le dossier db-template en db et personnaliser les données.  
 # Bases de données
 ## MCD
 ### Règles de gestion
